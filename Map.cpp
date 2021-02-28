@@ -4,7 +4,7 @@ void Map::Draw(Point left, Point right, int level) {
   for(int y = left.y; y <= right.y; ++y) {
     for(int x = left.x; x <= right.x; ++x) {
       Pixel buf = floor.GetPixel(x - left.x, y - left.y);
-      screen.PutPixel(x, y, buf);
+      screen.get()->PutPixel(x, y, buf);
     }
   }
 }

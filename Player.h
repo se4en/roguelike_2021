@@ -14,14 +14,15 @@ enum class MovementDir
 
 struct Player
 {
-  Player(Point pos, const std::string &p_path) :
-    coords(pos), 
-    old_coords(pos),
-    img(Image(p_path)) {};
+  Player(Image* Screen, Point Pos, const std::string &P_path) :
+    screen(Screen),
+    coords(Pos), 
+    old_coords(Pos),
+    img(Image(P_path)) {};
 
   bool Moved() const;
   void ProcessInput(MovementDir dir);
-  void Draw(Image &screen);
+  void Draw();
 
 private:
   Point coords {.x = 10, .y = 10};
@@ -29,6 +30,7 @@ private:
   Pixel color {.r = 255, .g = 255, .b = 0, .a = 255};
 
   Image img; 
+  std::shared_ptr<Image> screen;
   int move_speed = 3;
 
 };

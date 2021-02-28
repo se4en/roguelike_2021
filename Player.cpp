@@ -36,7 +36,7 @@ void Player::ProcessInput(MovementDir dir)
   }
 }
 
-void Player::Draw(Image &screen)
+void Player::Draw()
 {
   if(Moved())
   {
@@ -51,7 +51,7 @@ void Player::Draw(Image &screen)
     {
       for(int x = old_coords.x; x <= old_coords.x + tileSize; ++x)
       {
-        screen.PutPixel(x, y, backgroundColor);
+        screen.get()->PutPixel(x, y, backgroundColor);
       }
     }
     old_coords = coords;
@@ -64,7 +64,7 @@ void Player::Draw(Image &screen)
       //std::cout << "here" << std::endl;
       Pixel buf = img.GetPixel(x - coords.x, tileSize - y + coords.y - 1);
       //Pixel buf = img.GetPixel(1, 1);
-      screen.PutPixel(x, y, buf);
+      screen.get()->PutPixel(x, y, buf);
       //screen.PutPixel(x, y, color);
     }
   }
