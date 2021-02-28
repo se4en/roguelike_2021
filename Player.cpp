@@ -36,6 +36,14 @@ void Player::ProcessInput(MovementDir dir)
   }
 }
 
+Point Player::GetLeft() {
+  return old_old_coords;
+}
+
+Point Player::GetRight() {
+  return coords;
+}
+
 void Player::Draw()
 {
   if(Moved())
@@ -54,6 +62,7 @@ void Player::Draw()
         screen.get()->PutPixel(x, y, backgroundColor);
       }
     }
+    old_old_coords = old_coords;
     old_coords = coords;
   }
 

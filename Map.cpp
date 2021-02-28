@@ -1,9 +1,21 @@
 #include "Map.h"
 
 void Map::Draw(Point left, Point right, int level) {
+  load_level(level);  
+  Pixel buf;
+  std::cout << data << std::endl;
   for(int y = left.y; y <= right.y; ++y) {
     for(int x = left.x; x <= right.x; ++x) {
-      Pixel buf = floor.GetPixel(x - left.x, y - left.y);
+      switch(data[((WINDOW_HEIGHT - y)/tileSize)*(WINDOW_WIDTH/tileSize) + x/tileSize]) {
+        case ' ' : {
+          buf = floor.GetPixel(1, 1);
+          break;
+        }
+        case '#' : {
+          buf = wall.GetPixel(1, 1);
+          break;
+        }
+      }
       screen.get()->PutPixel(x, y, buf);
     }
   }

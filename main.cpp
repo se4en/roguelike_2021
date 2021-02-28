@@ -150,15 +150,15 @@ int main(int argc, char** argv)
   std::shared_ptr<Image> shared(&screenBuffer);
 
   // init player
-	Point starting_pos{.x = WINDOW_WIDTH / 2, .y = WINDOW_HEIGHT / 2};
-	Player player(starting_pos, "./resources/copt_3.jpg");
+	Point starting_pos{.x = WINDOW_WIDTH / 4, .y = WINDOW_HEIGHT / 4};
+	Player player(&screenBuffer, starting_pos, "./resources/copt_3.jpg");
 
   // init map
   std::map<std::string, std::string> tiles {
-    {"floor", "./resources/tex.jpg"},
-    {"wall", "./resources/tex.jpg"}, 
-    {"door", "./resources/tex.jpg"}, 
-    {"castle", "./resources/tex.jpg"}
+    {"floor", "./resources/tex.png"},
+    {"wall", "./resources/wall.jpg"}, 
+    {"door", "./resources/tex.png"}, 
+    {"castle", "./resources/tex.png"}
   };
   std::map<int, std::string> levels {
     {1, "./resources/level_1.txt"}
@@ -170,8 +170,7 @@ int main(int argc, char** argv)
   glClearColor(0.0f, 0.0f, 0.0f, 1.0f); GL_CHECK_ERRORS;
 
   // check
-
-  map.Draw({.x=0, .y=0}, {.x=23, .y=23});
+  map.Draw({.x=0, .y=0}, {.x=WINDOW_WIDTH-1, .y=WINDOW_HEIGHT-1});
 
   //game loop
 	while (!glfwWindowShouldClose(window))
@@ -182,7 +181,8 @@ int main(int argc, char** argv)
     glfwPollEvents();
 
     processPlayerMovement(player);
-    player.Draw(screenBuffer);
+    player.Draw();
+    // map.Draw(player.GetLeft(), player.GetRight());
 
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); GL_CHECK_ERRORS;
     glDrawPixels (WINDOW_WIDTH, WINDOW_HEIGHT, GL_RGBA, GL_UNSIGNED_BYTE, screenBuffer.Data()); GL_CHECK_ERRORS;
