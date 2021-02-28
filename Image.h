@@ -2,8 +2,16 @@
 #define MAIN_IMAGE_H
 
 #include <string>
+#include <memory>
 
-constexpr int tileSize = 16;
+constexpr int tileSize = 24;
+constexpr int playerSize = 24;
+
+struct Point
+{
+  int x;
+  int y;
+};
 
 struct Pixel
 {
@@ -17,7 +25,7 @@ constexpr Pixel backgroundColor{0, 0, 0, 0};
 
 struct Image
 {
-  explicit Image(const std::string &a_path);
+  Image(const std::string &a_path);
   Image(int a_width, int a_height, int a_channels);
 
   int Save(const std::string &a_path);

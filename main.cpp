@@ -1,11 +1,10 @@
 #include "common.h"
 #include "Image.h"
 #include "Player.h"
+#include "Map.h"
 
 #define GLFW_DLL
 #include <GLFW/glfw3.h>
-
-constexpr GLsizei WINDOW_WIDTH = 1024, WINDOW_HEIGHT = 1024;
 
 struct InputState
 {
@@ -67,7 +66,6 @@ void OnMouseButtonClicked(GLFWwindow* window, int button, int action, int mods)
   }
   else
     glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
-
 }
 
 void OnMouseMove(GLFWwindow* window, double xpos, double ypos)
@@ -147,14 +145,33 @@ int main(int argc, char** argv)
 	while (gl_error != GL_NO_ERROR)
 		gl_error = glGetError();
 
-	Point starting_pos{.x = WINDOW_WIDTH / 2, .y = WINDOW_HEIGHT / 2};
-	Player player{starting_pos};
+  // init screen
+  Image screenBuffer(WINDOW_WIDTH, WINDOW_HEIGHT, 4);
+  std::shared_ptr<Image> shared(&screenBuffer);
 
-	Image img("../resources/tex.png");
-	Image screenBuffer(WINDOW_WIDTH, WINDOW_HEIGHT, 4);
+  // init player
+	Point starting_pos{.x = WINDOW_WIDTH / 2, .y = WINDOW_HEIGHT / 2};
+	Player player(starting_pos, "./resources/copt_3.jpg");
+
+  // init map
+  std::map<std::string, std::string> tiles {
+    {"floor", "./resources/tex.jpg"},
+    {"wall", "./resources/tex.jpg"}, 
+    {"door", "./resources/tex.jpg"}, 
+    {"castle", "./resources/tex.jpg"}
+  };
+  std::map<int, std::string> levels {
+    {1, "./resources/level_1.txt"}
+  };
+  
+  Map map(&screenBuffer, tiles, levels);
 
   glViewport(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT);  GL_CHECK_ERRORS;
   glClearColor(0.0f, 0.0f, 0.0f, 1.0f); GL_CHECK_ERRORS;
+
+  // check
+
+  map.Draw({.x=0, .y=0}, {.x=23, .y=23});
 
   //game loop
 	while (!glfwWindowShouldClose(window))

@@ -2,12 +2,7 @@
 #define MAIN_PLAYER_H
 
 #include "Image.h"
-
-struct Point
-{
-  int x;
-  int y;
-};
+#include "Map.h"
 
 enum class MovementDir
 {
@@ -19,8 +14,10 @@ enum class MovementDir
 
 struct Player
 {
-  explicit Player(Point pos = {.x = 10, .y = 10}) :
-                 coords(pos), old_coords(coords) {};
+  Player(Point pos, const std::string &p_path) :
+    coords(pos), 
+    old_coords(pos),
+    img(Image(p_path)) {};
 
   bool Moved() const;
   void ProcessInput(MovementDir dir);
@@ -30,7 +27,9 @@ private:
   Point coords {.x = 10, .y = 10};
   Point old_coords {.x = 10, .y = 10};
   Pixel color {.r = 255, .g = 255, .b = 0, .a = 255};
-  int move_speed = 4;
+
+  Image img; 
+  int move_speed = 3;
 
 };
 
