@@ -5,7 +5,7 @@
 #include <memory>
 
 constexpr int tileSize = 24;
-constexpr int playerSize = 24;
+constexpr int playerSize = 20;
 
 struct Point
 {
@@ -49,7 +49,5 @@ private:
   Pixel *data = nullptr;
   bool self_allocated = false;
 };
-
-
 
 #endif //MAIN_IMAGE_H

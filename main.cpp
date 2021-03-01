@@ -42,16 +42,16 @@ void OnKeyboardPressed(GLFWwindow* window, int key, int scancode, int action, in
 	}
 }
 
-void processPlayerMovement(Player &player)
+void processPlayerMovement(Player &player, Map &map)
 {
   if (Input.keys[GLFW_KEY_W])
-    player.ProcessInput(MovementDir::UP);
+    player.ProcessInput(MovementDir::UP, map);
   else if (Input.keys[GLFW_KEY_S])
-    player.ProcessInput(MovementDir::DOWN);
+    player.ProcessInput(MovementDir::DOWN, map);
   if (Input.keys[GLFW_KEY_A])
-    player.ProcessInput(MovementDir::LEFT);
+    player.ProcessInput(MovementDir::LEFT, map);
   else if (Input.keys[GLFW_KEY_D])
-    player.ProcessInput(MovementDir::RIGHT);
+    player.ProcessInput(MovementDir::RIGHT, map);
 }
 
 void OnMouseButtonClicked(GLFWwindow* window, int button, int action, int mods)
@@ -155,9 +155,10 @@ int main(int argc, char** argv)
 
   // init map
   std::map<std::string, std::string> tiles {
+    {"lava", "./resources/lava.png"},
     {"floor", "./resources/tex.png"},
     {"wall", "./resources/wall.jpg"}, 
-    {"door", "./resources/tex.png"}, 
+    {"door", "./resources/door.jpg"}, 
     {"castle", "./resources/tex.png"}
   };
   std::map<int, std::string> levels {
@@ -180,9 +181,8 @@ int main(int argc, char** argv)
 		lastFrame = currentFrame;
     glfwPollEvents();
 
-    processPlayerMovement(player);
+    processPlayerMovement(player, map);
     player.Draw();
-    // map.Draw(player.GetLeft(), player.GetRight());
 
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); GL_CHECK_ERRORS;
     glDrawPixels (WINDOW_WIDTH, WINDOW_HEIGHT, GL_RGBA, GL_UNSIGNED_BYTE, screenBuffer.Data()); GL_CHECK_ERRORS;

@@ -22,7 +22,7 @@ struct Player
     img(Image(P_path)) {};
 
   bool Moved() const;
-  void ProcessInput(MovementDir dir);
+  void ProcessInput(MovementDir dir, Map &map);
   void Draw();
   Point GetLeft();
   Point GetRight();
@@ -34,7 +34,7 @@ private:
 
   Image img; 
   std::shared_ptr<Image> screen;
-  int move_speed = 3;
+  int move_speed = 4;
 
 };
 

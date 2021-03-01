@@ -16,6 +16,7 @@ struct Map
   Map(Image* Screen, std::map<std::string, std::string> Tiles, 
       std::map<int, std::string> Levels) :
     screen(Screen),
+    lava(Image(Tiles["lava"])),
     floor(Image(Tiles["floor"])),
     wall(Image(Tiles["wall"])),
     door(Image(Tiles["door"])),
@@ -24,11 +25,12 @@ struct Map
     cur_level(1) {};
 
   void Draw(Point left, Point right, int level=1);
-  bool IsPossible(Point left, Point right, int level=1);
+  bool IsPossible(Point possiblePoint, int level=1);
 
 private:
   std::shared_ptr<Image> screen;
 
+  Image lava;
   Image floor;
   Image wall;
   Image door;
