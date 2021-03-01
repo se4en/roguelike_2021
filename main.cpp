@@ -151,7 +151,7 @@ int main(int argc, char** argv)
 
   // init player
 	Point starting_pos{.x = WINDOW_WIDTH / 4, .y = WINDOW_HEIGHT / 4};
-	Player player(&screenBuffer, starting_pos, "./resources/copt_3.jpg");
+	Player player(&screenBuffer, starting_pos, "./resources/crab.png");
 
   // init map
   std::map<std::string, std::string> tiles {

@@ -3,16 +3,16 @@
 void Map::Draw(Point left, Point right, int level) {
   load_level(level);  
   Pixel buf;
-  std::cout << data << std::endl;
+
   for(int y = left.y; y <= right.y; ++y) {
     for(int x = left.x; x <= right.x; ++x) {
       switch(data[((WINDOW_HEIGHT - y)/tileSize)*(WINDOW_WIDTH/tileSize) + x/tileSize]) {
         case ' ' : {
-          buf = floor.GetPixel(1, 1);
+          buf = floor.GetPixel(x%tileSize, tileSize - y%tileSize);
           break;
         }
         case '#' : {
-          buf = wall.GetPixel(1, 1);
+          buf = wall.GetPixel(x%tileSize, tileSize - y%tileSize);
           break;
         }
       }
@@ -28,6 +28,7 @@ bool Map::IsPossible(Point left, Point right, int level) {
 void Map::load_level(int level) {
   std::string line;
   std::ifstream level_file(levels[level]);
+  
   if (level_file.is_open()) {
     data = "";
     while (!level_file.eof()) {
