@@ -11,6 +11,12 @@
 
 constexpr GLsizei WINDOW_WIDTH = 960, WINDOW_HEIGHT = 960;
 
+enum Actions {
+  PL_DIE,
+  PL_STOP,
+  PL_GO
+};
+
 struct Map
 {
   Map(Image* Screen, std::map<std::string, std::string> Tiles, 
@@ -25,7 +31,7 @@ struct Map
     cur_level(1) {};
 
   void Draw(std::pair<Point, Point>, int level=1);
-  bool IsPossible(Point possiblePoint, int level=1);
+  Actions GetAction(Point possiblePoint, int level=1);
 
 private:
   std::shared_ptr<Image> screen;

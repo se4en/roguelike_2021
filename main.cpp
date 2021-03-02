@@ -184,9 +184,22 @@ int main(int argc, char** argv)
     processPlayerMovement(player, map);
     map.Draw(player.GetLeftRight());
     player.Draw();
+    
+    // 
+    switch (player.GetStatus())
+    {
+      case ST_DIED:
+        map.Draw(player.GetLeftRight());
+	      player.Restart();
+        break;
+      case ST_WON:
+        break;
+      case ST_ON_RUN:
+        break;
+    }
 
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); GL_CHECK_ERRORS;
-    glDrawPixels (WINDOW_WIDTH, WINDOW_HEIGHT, GL_RGBA, GL_UNSIGNED_BYTE, screenBuffer.Data()); GL_CHECK_ERRORS;
+    glDrawPixels(WINDOW_WIDTH, WINDOW_HEIGHT, GL_RGBA, GL_UNSIGNED_BYTE, screenBuffer.Data()); GL_CHECK_ERRORS;
 
 		glfwSwapBuffers(window);
 	}

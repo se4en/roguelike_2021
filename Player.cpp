@@ -14,23 +14,55 @@ void Player::ProcessInput(MovementDir dir, Map &map)
   {
     case MovementDir::UP:
       old_coords.y = coords.y;
-      if (map.IsPossible({.x = coords.x, .y = coords.y + move_dist}))
-        coords.y += move_dist;
+      switch (map.GetAction({.x = coords.x, .y = coords.y + move_dist})) 
+      {
+        case PL_DIE: 
+          status = ST_DIED;
+        case PL_GO: 
+          coords.y += move_dist;
+          break;
+        case PL_STOP:
+          break;
+      }
       break;
     case MovementDir::DOWN:
       old_coords.y = coords.y;
-      if (map.IsPossible({.x = coords.x, .y = coords.y - move_dist}))
-        coords.y -= move_dist;
+      switch (map.GetAction({.x = coords.x, .y = coords.y - move_dist})) 
+      {
+        case PL_DIE: 
+          status = ST_DIED;
+        case PL_GO: 
+          coords.y -= move_dist;
+          break;
+        case PL_STOP:
+          break;
+      }
       break;
     case MovementDir::LEFT:
       old_coords.x = coords.x;
-      if (map.IsPossible({.x = coords.x - move_dist, .y = coords.y}))
-        coords.x -= move_dist;
+      switch (map.GetAction({.x = coords.x - move_dist, .y = coords.y})) 
+      {
+        case PL_DIE: 
+          status = ST_DIED;
+        case PL_GO: 
+          coords.x -= move_dist;
+          break;
+        case PL_STOP:
+          break;
+      }
       break;
     case MovementDir::RIGHT:
       old_coords.x = coords.x;
-      if (map.IsPossible({.x = coords.x + move_dist, .y = coords.y}))
-        coords.x += move_dist;
+      switch (map.GetAction({.x = coords.x + move_dist, .y = coords.y})) 
+      {
+        case PL_DIE: 
+          status = ST_DIED;
+        case PL_GO: 
+          coords.x += move_dist;
+          break;
+        case PL_STOP:
+          break;
+      }
       break;
     default:
       break;
@@ -53,4 +85,10 @@ void Player::Draw()
       screen.get()->PutPixel(x, y, buf);
     }
   }
+}
+
+void Player::Restart() {
+  old_coords = start;
+  coords = start;
+  status = ST_ON_RUN;
 }
