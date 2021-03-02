@@ -1,7 +1,6 @@
 #include "Map.h"
 
 void Map::Draw(std::pair<Point, Point> pair, int level) {
-  load_level(level);  
   Pixel buf;
 
   Point left = pair.first;
@@ -36,7 +35,7 @@ Actions Map::GetAction(Point newPoint, int level) {
   if (newPoint.x<0 || newPoint.x>WINDOW_WIDTH-playerSize || newPoint.y<0 || newPoint.y>WINDOW_HEIGHT-playerSize)
     return PL_STOP;
   if (level!=cur_level)
-    load_level(level);
+    loadLevel(level);
   // checking for wall or door
   int left_down  = ((WINDOW_HEIGHT - 1 - newPoint.y)/tileSize)*(WINDOW_WIDTH/tileSize) + newPoint.x/tileSize;
   int right_down = ((WINDOW_HEIGHT - 1 - newPoint.y)/tileSize)*(WINDOW_WIDTH/tileSize) + (newPoint.x + playerSize - 1)/tileSize;
@@ -62,7 +61,55 @@ Actions Map::GetAction(Point newPoint, int level) {
   return PL_GO;
 }
 
-void Map::load_level(int level) {
+void Map::BreakDoor(Point curPos) {
+  int left_up    = ((WINDOW_HEIGHT - curPos.y - playerSize/2)/tileSize)*(WINDOW_WIDTH/tileSize) + 
+                    (curPos.x - 1)/tileSize;
+  int left_down  = ((WINDOW_HEIGHT - 1 - curPos.y - playerSize/2)/tileSize)*(WINDOW_WIDTH/tileSize) + 
+                    (curPos.x - 1)/tileSize;
+
+  int right_up   = ((WINDOW_HEIGHT - curPos.y - playerSize/2)/tileSize)*(WINDOW_WIDTH/tileSize) + 
+                    (curPos.x + playerSize)/tileSize;
+  int right_down = ((WINDOW_HEIGHT - 1 - curPos.y - playerSize/2)/tileSize)*(WINDOW_WIDTH/tileSize) + 
+                    (curPos.x + playerSize)/tileSize;
+
+  int down_left  = ((WINDOW_HEIGHT - 1 - curPos.y + playerSize)/tileSize)*(WINDOW_WIDTH/tileSize) + 
+                    (curPos.x + playerSize/2 - 1)/tileSize;
+  int down_right = ((WINDOW_HEIGHT - 1 - curPos.y + playerSize)/tileSize)*(WINDOW_WIDTH/tileSize) + 
+                    (curPos.x + playerSize/2)/tileSize;
+
+  int up_left    = ((WINDOW_HEIGHT - curPos.y)/tileSize - 1)*(WINDOW_WIDTH/tileSize) + 
+                    (curPos.x + playerSize/2 - 1)/tileSize;
+  int up_right   = ((WINDOW_HEIGHT - curPos.y)/tileSize - 1)*(WINDOW_WIDTH/tileSize) + 
+                    (curPos.x + playerSize/2)/tileSize;
+
+  if (right_up==right_down && data[right_up]=='%') { 
+    data[right_up] = '.';
+    // here could be door breaking animation
+    Draw(std::pair<Point, Point>(
+      {.x = tileSize*(right_up%(WINDOW_WIDTH/tileSize)), .y = WINDOW_HEIGHT - tileSize*(right_up/(WINDOW_HEIGHT/tileSize) + 1)}, 
+      {.x = tileSize*(right_up%(WINDOW_WIDTH/tileSize) + 1), .y = WINDOW_HEIGHT - tileSize*(right_up/(WINDOW_HEIGHT/tileSize))}));
+  }
+  else if (left_up==left_down && data[left_up]=='%') {
+    data[left_up] = '.';
+    Draw(std::pair<Point, Point>(
+      {.x = tileSize*(left_up%(WINDOW_WIDTH/tileSize)), .y = WINDOW_HEIGHT - tileSize*(left_up/(WINDOW_HEIGHT/tileSize) + 1)}, 
+      {.x = tileSize*(left_up%(WINDOW_WIDTH/tileSize) + 1), .y = WINDOW_HEIGHT - tileSize*(left_up/(WINDOW_HEIGHT/tileSize))}));
+  }
+  else if (up_left==up_right && data[up_left]=='%') { 
+    data[up_left] = '.';
+    Draw(std::pair<Point, Point>(
+      {.x = tileSize*(up_left%(WINDOW_WIDTH/tileSize)), .y = WINDOW_HEIGHT - tileSize*(up_left/(WINDOW_HEIGHT/tileSize) + 1)}, 
+      {.x = tileSize*(up_left%(WINDOW_WIDTH/tileSize) + 1), .y = WINDOW_HEIGHT - tileSize*(up_left/(WINDOW_HEIGHT/tileSize))}));
+  }
+  else if (down_left==down_right && data[down_left]=='%') { 
+    data[down_left] = '.';
+    Draw(std::pair<Point, Point>(
+      {.x = tileSize*(down_left%(WINDOW_WIDTH/tileSize)), .y = WINDOW_HEIGHT - tileSize*(down_left/(WINDOW_HEIGHT/tileSize) + 1)}, 
+      {.x = tileSize*(down_left%(WINDOW_WIDTH/tileSize) + 1), .y = WINDOW_HEIGHT - tileSize*(down_left/(WINDOW_HEIGHT/tileSize))}));
+  }
+}
+
+void Map::loadLevel(int level) {
   std::string line;
   std::ifstream level_file(levels[level]);
   

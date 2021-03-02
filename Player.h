@@ -37,6 +37,7 @@ struct Player
   std::pair<Point, Point> GetLeftRight();
   void Restart();
   Status GetStatus() {return status;};
+  Point GetCoords() {return coords;};
 private:
   Point coords {.x = 10, .y = 10};
   Point old_coords {.x = 10, .y = 10};

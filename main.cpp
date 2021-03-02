@@ -43,7 +43,9 @@ void OnKeyboardPressed(GLFWwindow* window, int key, int scancode, int action, in
 }
 
 void processPlayerMovement(Player &player, Map &map)
-{
+{ 
+  if (Input.keys[GLFW_KEY_E])
+    map.BreakDoor(player.GetCoords());
   if (Input.keys[GLFW_KEY_W])
     player.ProcessInput(MovementDir::UP, map);
   else if (Input.keys[GLFW_KEY_S])
@@ -171,6 +173,7 @@ int main(int argc, char** argv)
   glClearColor(0.0f, 0.0f, 0.0f, 1.0f); GL_CHECK_ERRORS;
 
   // check
+  map.LoadLevel(1);
   map.Draw(std::pair<Point, Point>({.x=0, .y=0}, {.x=WINDOW_WIDTH-1, .y=WINDOW_HEIGHT-1}));
 
   //game loop
