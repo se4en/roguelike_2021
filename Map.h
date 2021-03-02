@@ -34,7 +34,7 @@ struct Map
   void Draw(std::pair<Point, Point>, int level=1);
   void BreakDoor(Point curPps);
   Actions GetAction(Point possiblePoint, int level=1);
-
+  void LoadLevel(int level);
 private:
   std::shared_ptr<Image> screen;
   Image lava;
@@ -46,8 +46,6 @@ private:
   std::map<int, std::string> levels;
   int cur_level;
   std::string data;
-
-  void loadLevel(int level);
 };
 
 #endif // MAP_H

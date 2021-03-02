@@ -34,8 +34,6 @@ Actions Map::GetAction(Point newPoint, int level) {
   // checking for map end
   if (newPoint.x<0 || newPoint.x>WINDOW_WIDTH-playerSize || newPoint.y<0 || newPoint.y>WINDOW_HEIGHT-playerSize)
     return PL_STOP;
-  if (level!=cur_level)
-    loadLevel(level);
   // checking for wall or door
   int left_down  = ((WINDOW_HEIGHT - 1 - newPoint.y)/tileSize)*(WINDOW_WIDTH/tileSize) + newPoint.x/tileSize;
   int right_down = ((WINDOW_HEIGHT - 1 - newPoint.y)/tileSize)*(WINDOW_WIDTH/tileSize) + (newPoint.x + playerSize - 1)/tileSize;
@@ -109,7 +107,7 @@ void Map::BreakDoor(Point curPos) {
   }
 }
 
-void Map::loadLevel(int level) {
+void Map::LoadLevel(int level) {
   std::string line;
   std::ifstream level_file(levels[level]);
   
