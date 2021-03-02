@@ -24,7 +24,7 @@ struct Map
     levels(Levels),
     cur_level(1) {};
 
-  void Draw(Point left, Point right, int level=1);
+  void Draw(std::pair<Point, Point>, int level=1);
   bool IsPossible(Point possiblePoint, int level=1);
 
 private:

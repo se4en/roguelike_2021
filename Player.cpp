@@ -37,45 +37,20 @@ void Player::ProcessInput(MovementDir dir, Map &map)
   }
 }
 
-Point Player::GetLeft() {
-  return old_old_coords;
-}
-
-Point Player::GetRight() {
-  return coords;
+std::pair<Point, Point> Player::GetLeftRight() {
+  return std::pair<Point, Point>(
+    {.x=std::min(old_coords.x, coords.x), .y=std::min(old_coords.y, coords.y)},
+    {.x=std::max(old_coords.x, coords.x)+playerSize, .y=std::max(old_coords.y, coords.y)+playerSize});
 }
 
 void Player::Draw()
 {
-  if(Moved())
-  {
-    // need check is it possible
-    // if (map.IsPossible()) {
-    //  
-    // } 
-
-	  Point left{.x = WINDOW_WIDTH / 2, .y = WINDOW_HEIGHT / 2};
-    // map.Draw();
-    for(int y = old_coords.y; y <= old_coords.y + playerSize; ++y)
-    {
-      for(int x = old_coords.x; x <= old_coords.x + playerSize; ++x)
-      {
-        screen.get()->PutPixel(x, y, backgroundColor);
-      }
-    }
-    old_old_coords = old_coords;
-    old_coords = coords;
-  }
-
   for(int y = coords.y; y <= coords.y + playerSize; ++y)
   {
     for(int x = coords.x; x <= coords.x + playerSize; ++x)
     {
-      //std::cout << "here" << std::endl;
       Pixel buf = img.GetPixel(x - coords.x, playerSize - y + coords.y - 1);
-      //Pixel buf = img.GetPixel(1, 1);
       screen.get()->PutPixel(x, y, buf);
-      //screen.PutPixel(x, y, color);
     }
   }
 }

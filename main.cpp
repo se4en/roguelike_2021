@@ -171,7 +171,7 @@ int main(int argc, char** argv)
   glClearColor(0.0f, 0.0f, 0.0f, 1.0f); GL_CHECK_ERRORS;
 
   // check
-  map.Draw({.x=0, .y=0}, {.x=WINDOW_WIDTH-1, .y=WINDOW_HEIGHT-1});
+  map.Draw(std::pair<Point, Point>({.x=0, .y=0}, {.x=WINDOW_WIDTH-1, .y=WINDOW_HEIGHT-1}));
 
   //game loop
 	while (!glfwWindowShouldClose(window))
@@ -182,6 +182,7 @@ int main(int argc, char** argv)
     glfwPollEvents();
 
     processPlayerMovement(player, map);
+    map.Draw(player.GetLeftRight());
     player.Draw();
 
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); GL_CHECK_ERRORS;

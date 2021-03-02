@@ -1,8 +1,11 @@
 #include "Map.h"
 
-void Map::Draw(Point left, Point right, int level) {
+void Map::Draw(std::pair<Point, Point> pair, int level) {
   load_level(level);  
   Pixel buf;
+
+  Point left = pair.first;
+  Point right = pair.second;
 
   for(int y = left.y; y <= right.y; ++y) {
     for(int x = left.x; x <= right.x; ++x) {
