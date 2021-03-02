@@ -159,7 +159,7 @@ int main(int argc, char** argv)
     {"floor", "./resources/tex.png"},
     {"wall", "./resources/wall.jpg"}, 
     {"door", "./resources/door.jpg"}, 
-    {"castle", "./resources/tex.png"}
+    {"castle", "./resources/crab.png"}
   };
   std::map<int, std::string> levels {
     {1, "./resources/level_1.txt"}
@@ -191,8 +191,12 @@ int main(int argc, char** argv)
       case ST_DIED:
         map.Draw(player.GetLeftRight());
 	      player.Restart();
+        // do something for dead
         break;
       case ST_WON:
+        map.Draw(player.GetLeftRight());
+        // do somethink for win
+	      player.Restart();
         break;
       case ST_ON_RUN:
         break;

@@ -22,6 +22,9 @@ void Map::Draw(std::pair<Point, Point> pair, int level) {
         case '%':
           buf = door.GetPixel(x%tileSize, tileSize - (y+1)%tileSize);
           break;
+        case 'x':
+          buf = castle.GetPixel(x%tileSize, tileSize - (y+1)%tileSize);
+          break;
       }
       screen.get()->PutPixel(x, y, buf);
     }
@@ -34,12 +37,13 @@ Actions Map::GetAction(Point newPoint, int level) {
     return PL_STOP;
   if (level!=cur_level)
     load_level(level);
-  // checking for wall
+  // checking for wall or door
   int left_down  = ((WINDOW_HEIGHT - 1 - newPoint.y)/tileSize)*(WINDOW_WIDTH/tileSize) + newPoint.x/tileSize;
   int right_down = ((WINDOW_HEIGHT - 1 - newPoint.y)/tileSize)*(WINDOW_WIDTH/tileSize) + (newPoint.x + playerSize - 1)/tileSize;
   int left_up    = ((WINDOW_HEIGHT - newPoint.y - playerSize)/tileSize)*(WINDOW_WIDTH/tileSize) + newPoint.x/tileSize;
   int right_up   = ((WINDOW_HEIGHT - newPoint.y - playerSize)/tileSize)*(WINDOW_WIDTH/tileSize) + (newPoint.x + playerSize - 1)/tileSize;
-  if (data[left_down]=='#' || data[right_down]=='#' || data[left_up]=='#' || data[right_up]=='#')
+  if (data[left_down]=='#' || data[right_down]=='#' || data[left_up]=='#' || data[right_up]=='#' ||
+      data[left_down]=='%' || data[right_down]=='%' || data[left_up]=='%' || data[right_up]=='%')
     return PL_STOP;
   // checking for lava
   left_up    = ((WINDOW_HEIGHT - newPoint.y - playerSize/2)/tileSize)*(WINDOW_WIDTH/tileSize) + 
@@ -47,11 +51,14 @@ Actions Map::GetAction(Point newPoint, int level) {
   right_up   = ((WINDOW_HEIGHT - newPoint.y - playerSize/2)/tileSize)*(WINDOW_WIDTH/tileSize) + 
                     (newPoint.x + playerSize/2)/tileSize;
   left_down  = ((WINDOW_HEIGHT - 1 - newPoint.y - playerSize/2)/tileSize)*(WINDOW_WIDTH/tileSize) + 
-                    (newPoint.x + playerSize - 1)/tileSize;
+                    (newPoint.x + playerSize/2 - 1)/tileSize;
   right_down = ((WINDOW_HEIGHT - 1 - newPoint.y - playerSize/2)/tileSize)*(WINDOW_WIDTH/tileSize) + 
-                    (newPoint.x + playerSize)/tileSize;
+                    (newPoint.x + playerSize/2)/tileSize;
   if (data[left_down]==' ' && data[right_up]==' ' || data[left_up]==' ' && data[right_down]==' ')
     return PL_DIE;
+  // checking for castle
+  if (data[left_down]=='x' && data[right_up]=='x' || data[left_up]=='x' && data[right_down]=='x')
+    return PL_WIN;
   return PL_GO;
 }
 

@@ -18,6 +18,12 @@ void Player::ProcessInput(MovementDir dir, Map &map)
       {
         case PL_DIE: 
           status = ST_DIED;
+          coords.y += move_dist;
+          break;
+        case PL_WIN: 
+          status = ST_WON;
+          coords.y += move_dist;
+          break;
         case PL_GO: 
           coords.y += move_dist;
           break;
@@ -31,6 +37,12 @@ void Player::ProcessInput(MovementDir dir, Map &map)
       {
         case PL_DIE: 
           status = ST_DIED;
+          coords.y -= move_dist;
+          break;
+        case PL_WIN: 
+          status = ST_WON;
+          coords.y -= move_dist;
+          break;
         case PL_GO: 
           coords.y -= move_dist;
           break;
@@ -44,6 +56,12 @@ void Player::ProcessInput(MovementDir dir, Map &map)
       {
         case PL_DIE: 
           status = ST_DIED;
+          coords.x -= move_dist;
+          break;
+        case PL_WIN: 
+          status = ST_WON;
+          coords.x -= move_dist;
+          break;
         case PL_GO: 
           coords.x -= move_dist;
           break;
@@ -57,6 +75,12 @@ void Player::ProcessInput(MovementDir dir, Map &map)
       {
         case PL_DIE: 
           status = ST_DIED;
+          coords.x += move_dist;
+          break;
+        case PL_WIN: 
+          status = ST_WON;
+          coords.x += move_dist;
+          break;
         case PL_GO: 
           coords.x += move_dist;
           break;

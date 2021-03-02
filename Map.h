@@ -14,7 +14,8 @@ constexpr GLsizei WINDOW_WIDTH = 960, WINDOW_HEIGHT = 960;
 enum Actions {
   PL_DIE,
   PL_STOP,
-  PL_GO
+  PL_GO, 
+  PL_WIN
 };
 
 struct Map
