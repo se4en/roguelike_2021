@@ -151,10 +151,6 @@ int main(int argc, char** argv)
   Image screenBuffer(WINDOW_WIDTH, WINDOW_HEIGHT, 4);
   std::shared_ptr<Image> shared(&screenBuffer);
 
-  // init player
-	Point starting_pos{.x = WINDOW_WIDTH / 4, .y = WINDOW_HEIGHT / 4};
-	Player player(&screenBuffer, starting_pos, "./resources/crab.png");
-
   // init map
   std::map<std::string, std::string> tiles {
     {"lava", "./resources/lava.png"},
@@ -166,15 +162,15 @@ int main(int argc, char** argv)
   std::map<int, std::string> levels {
     {1, "./resources/level_1.txt"}
   };
-  
   Map map(&screenBuffer, tiles, levels);
+  map.LoadLevel(1);
+  map.Draw(std::pair<Point, Point>({.x=0, .y=0}, {.x=WINDOW_WIDTH-1, .y=WINDOW_HEIGHT-1}));
+
+  // init player
+	Player player(&screenBuffer, map.GetStart(), "./resources/crab.png");
 
   glViewport(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT);  GL_CHECK_ERRORS;
   glClearColor(0.0f, 0.0f, 0.0f, 1.0f); GL_CHECK_ERRORS;
-
-  // check
-  map.LoadLevel(1);
-  map.Draw(std::pair<Point, Point>({.x=0, .y=0}, {.x=WINDOW_WIDTH-1, .y=WINDOW_HEIGHT-1}));
 
   //game loop
 	while (!glfwWindowShouldClose(window))

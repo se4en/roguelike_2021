@@ -35,6 +35,7 @@ struct Map
   void BreakDoor(Point curPps);
   Actions GetAction(Point possiblePoint, int level=1);
   void LoadLevel(int level);
+  Point GetStart();
 private:
   std::shared_ptr<Image> screen;
   Image lava;

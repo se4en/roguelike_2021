@@ -120,3 +120,8 @@ void Map::LoadLevel(int level) {
     level_file.close();
   }
 }
+
+Point Map::GetStart() {
+  int pos = data.find("@");
+  return Point{.x = tileSize*(pos%(WINDOW_WIDTH/tileSize)), .y = WINDOW_HEIGHT - tileSize*(pos/(WINDOW_HEIGHT/tileSize) + 1)};
+}
