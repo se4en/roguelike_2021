@@ -173,8 +173,7 @@ int main(int argc, char** argv)
   glClearColor(0.0f, 0.0f, 0.0f, 1.0f); GL_CHECK_ERRORS;
 
   //game loop
-	while (!glfwWindowShouldClose(window))
-	{
+	while (!glfwWindowShouldClose(window)) {
 		GLfloat currentFrame = glfwGetTime();
 		deltaTime = currentFrame - lastFrame;
 		lastFrame = currentFrame;
@@ -185,8 +184,7 @@ int main(int argc, char** argv)
     player.Draw();
     
     // 
-    switch (player.GetStatus())
-    {
+    switch (player.GetStatus()) {
       case ST_DIED:
         map.Draw(player.GetLeftRight());
 	      player.Restart();

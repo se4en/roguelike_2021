@@ -2,20 +2,16 @@
 
 #include <iostream>
 
-bool Player::Moved() const
-{
+bool Player::Moved() const {
   return !(coords.x == old_coords.x && coords.y == old_coords.y);
 }
 
-void Player::ProcessInput(MovementDir dir, Map &map) 
-{
+void Player::ProcessInput(MovementDir dir, Map &map) {
   int move_dist = move_speed * 1;
-  switch(dir)
-  {
+  switch(dir) {
     case MovementDir::UP:
       old_coords.y = coords.y;
-      switch (map.GetAction({.x = coords.x, .y = coords.y + move_dist})) 
-      {
+      switch (map.GetAction({.x = coords.x, .y = coords.y + move_dist})) {
         case PL_DIE: 
           status = ST_DIED;
           coords.y += move_dist;
@@ -33,8 +29,7 @@ void Player::ProcessInput(MovementDir dir, Map &map)
       break;
     case MovementDir::DOWN:
       old_coords.y = coords.y;
-      switch (map.GetAction({.x = coords.x, .y = coords.y - move_dist})) 
-      {
+      switch (map.GetAction({.x = coords.x, .y = coords.y - move_dist})) {
         case PL_DIE: 
           status = ST_DIED;
           coords.y -= move_dist;
@@ -52,8 +47,7 @@ void Player::ProcessInput(MovementDir dir, Map &map)
       break;
     case MovementDir::LEFT:
       old_coords.x = coords.x;
-      switch (map.GetAction({.x = coords.x - move_dist, .y = coords.y})) 
-      {
+      switch (map.GetAction({.x = coords.x - move_dist, .y = coords.y})) {
         case PL_DIE: 
           status = ST_DIED;
           coords.x -= move_dist;
@@ -71,8 +65,7 @@ void Player::ProcessInput(MovementDir dir, Map &map)
       break;
     case MovementDir::RIGHT:
       old_coords.x = coords.x;
-      switch (map.GetAction({.x = coords.x + move_dist, .y = coords.y})) 
-      {
+      switch (map.GetAction({.x = coords.x + move_dist, .y = coords.y})) {
         case PL_DIE: 
           status = ST_DIED;
           coords.x += move_dist;
@@ -99,12 +92,9 @@ std::pair<Point, Point> Player::GetLeftRight() {
     {.x=std::max(old_coords.x, coords.x)+playerSize, .y=std::max(old_coords.y, coords.y)+playerSize});
 }
 
-void Player::Draw()
-{
-  for(int y = coords.y; y <= coords.y + playerSize; ++y)
-  {
-    for(int x = coords.x; x <= coords.x + playerSize; ++x)
-    {
+void Player::Draw() {
+  for(int y = coords.y; y <= coords.y + playerSize; ++y) {
+    for(int x = coords.x; x <= coords.x + playerSize; ++x) {
       Pixel buf = img.GetPixel(x - coords.x, playerSize - y + coords.y - 1);
       screen.get()->PutPixel(x, y, buf);
     }

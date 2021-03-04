@@ -32,16 +32,22 @@ void Map::Draw(std::pair<Point, Point> pair, int level) {
 
 Actions Map::GetAction(Point newPoint, int level) {
   // checking for map end
-  if (newPoint.x<0 || newPoint.x>WINDOW_WIDTH-playerSize || newPoint.y<0 || newPoint.y>WINDOW_HEIGHT-playerSize)
+  if (newPoint.x<0 || newPoint.x>WINDOW_WIDTH-playerSize || newPoint.y<0 || newPoint.y>WINDOW_HEIGHT-playerSize) {
     return PL_STOP;
+  }
   // checking for wall or door
-  int left_down  = ((WINDOW_HEIGHT - 1 - newPoint.y)/tileSize)*(WINDOW_WIDTH/tileSize) + newPoint.x/tileSize;
-  int right_down = ((WINDOW_HEIGHT - 1 - newPoint.y)/tileSize)*(WINDOW_WIDTH/tileSize) + (newPoint.x + playerSize - 1)/tileSize;
-  int left_up    = ((WINDOW_HEIGHT - newPoint.y - playerSize)/tileSize)*(WINDOW_WIDTH/tileSize) + newPoint.x/tileSize;
-  int right_up   = ((WINDOW_HEIGHT - newPoint.y - playerSize)/tileSize)*(WINDOW_WIDTH/tileSize) + (newPoint.x + playerSize - 1)/tileSize;
+  int left_down  = ((WINDOW_HEIGHT - 1 - newPoint.y)/tileSize)*(WINDOW_WIDTH/tileSize) + 
+                    newPoint.x/tileSize;
+  int right_down = ((WINDOW_HEIGHT - 1 - newPoint.y)/tileSize)*(WINDOW_WIDTH/tileSize) + 
+                    (newPoint.x + playerSize - 1)/tileSize;
+  int left_up    = ((WINDOW_HEIGHT - newPoint.y - playerSize)/tileSize)*(WINDOW_WIDTH/tileSize) + 
+                    newPoint.x/tileSize;
+  int right_up   = ((WINDOW_HEIGHT - newPoint.y - playerSize)/tileSize)*(WINDOW_WIDTH/tileSize) +
+                    (newPoint.x + playerSize - 1)/tileSize;
   if (data[left_down]=='#' || data[right_down]=='#' || data[left_up]=='#' || data[right_up]=='#' ||
-      data[left_down]=='%' || data[right_down]=='%' || data[left_up]=='%' || data[right_up]=='%')
+      data[left_down]=='%' || data[right_down]=='%' || data[left_up]=='%' || data[right_up]=='%') {
     return PL_STOP;
+  }
   // checking for lava
   left_up    = ((WINDOW_HEIGHT - newPoint.y - playerSize/2)/tileSize)*(WINDOW_WIDTH/tileSize) + 
                     (newPoint.x + playerSize/2 - 1)/tileSize;
@@ -51,11 +57,13 @@ Actions Map::GetAction(Point newPoint, int level) {
                     (newPoint.x + playerSize/2 - 1)/tileSize;
   right_down = ((WINDOW_HEIGHT - 1 - newPoint.y - playerSize/2)/tileSize)*(WINDOW_WIDTH/tileSize) + 
                     (newPoint.x + playerSize/2)/tileSize;
-  if (data[left_down]==' ' && data[right_up]==' ' || data[left_up]==' ' && data[right_down]==' ')
+  if (data[left_down]==' ' && data[right_up]==' ' || data[left_up]==' ' && data[right_down]==' ') {
     return PL_DIE;
+  }
   // checking for castle
-  if (data[left_down]=='x' && data[right_up]=='x' || data[left_up]=='x' && data[right_down]=='x')
+  if (data[left_down]=='x' && data[right_up]=='x' || data[left_up]=='x' && data[right_down]=='x') {
     return PL_WIN;
+  }
   return PL_GO;
 }
 
