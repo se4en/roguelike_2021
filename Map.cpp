@@ -1,6 +1,6 @@
 #include "Map.h"
 
-void Map::Draw(std::pair<Point, Point> pair, int level) {
+void Map::Draw(std::pair<Point, Point> pair, double coef) {
   Pixel buf;
 
   Point left = pair.first;
@@ -25,9 +25,29 @@ void Map::Draw(std::pair<Point, Point> pair, int level) {
           buf = castle.GetPixel(x%tileSize, tileSize - (y+1)%tileSize);
           break;
       }
+      buf.r *= coef; buf.g *= coef; buf.b *= coef; buf.a *= coef;
       screen.get()->PutPixel(x, y, buf);
     }
   }
+}
+
+void Map::Map2Dark(double coef) {
+  Pixel buf;
+  for (int x = 0; x < WINDOW_WIDTH; x++) {
+    for (int y = 0; y < WINDOW_HEIGHT; y++) {
+      buf = screen.get()->GetPixel(x, y);
+      buf.r *= coef; buf.g *= coef; buf.b *= coef; buf.a *= coef;
+      screen.get()->PutPixel(x, y, buf);
+    }
+  }
+  std::this_thread::sleep_for(std::chrono::milliseconds(40));
+}
+
+
+void Map::Dark2Level(double coef) {
+  Pixel buf;
+  Draw(std::pair<Point, Point>(std::pair<Point, Point>({.x=0, .y=0}, {.x=WINDOW_WIDTH-1, .y=WINDOW_HEIGHT-1})), coef);
+  std::this_thread::sleep_for(std::chrono::milliseconds(40));
 }
 
 Actions Map::GetAction(Point newPoint, int level) {

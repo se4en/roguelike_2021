@@ -150,6 +150,7 @@ int main(int argc, char** argv)
   // init screen
   Image screenBuffer(WINDOW_WIDTH, WINDOW_HEIGHT, 4);
   std::shared_ptr<Image> shared(&screenBuffer);
+  float coef = 0;
 
   // init map
   std::map<std::string, std::string> tiles {
@@ -178,24 +179,61 @@ int main(int argc, char** argv)
 		deltaTime = currentFrame - lastFrame;
 		lastFrame = currentFrame;
     glfwPollEvents();
-
-    processPlayerMovement(player, map);
-    map.Draw(player.GetLeftRight());
-    player.Draw();
     
-    // 
-    switch (player.GetStatus()) {
-      case ST_DIED:
-        map.Draw(player.GetLeftRight());
-	      player.Restart();
-        // do something for dead
+    if (player.GetStatus()==ST_ON_RUN) {
+      processPlayerMovement(player, map);
+      map.Draw(player.GetLeftRight());
+      player.Draw();
+    }
+    
+
+
+    switch (map.GetStatus()) {
+
+      case MP_INGAME:
+        switch (player.GetStatus()) {
+          case ST_ON_RUN:
+            break;
+          case ST_DIED:
+            map.Draw(player.GetLeftRight());
+            map.LoadLevel(1);
+            // do something for dead
+            map.SetStatus(MP_2DARK);
+            coef = 1;
+            break;
+          case ST_WON:
+            map.Draw(player.GetLeftRight());
+            map.LoadLevel(1);
+            // do somethink for win
+            //player.Restart();
+            map.SetStatus(MP_2DARK);
+            coef = 1;
+            break;
+        }
         break;
-      case ST_WON:
-        map.Draw(player.GetLeftRight());
-        // do somethink for win
-	      player.Restart();
+
+      case MP_2DARK:
+        if (coef >= 0) {
+          map.Map2Dark(coef);
+          coef -= 0.01;
+        }
+        else {
+          map.LoadLevel(1);
+          map.SetStatus(MP_2LVL);
+          coef = 0;
+        }
         break;
-      case ST_ON_RUN:
+
+      case MP_2LVL:
+        if (coef <= 1) {
+          map.Dark2Level(coef);
+          coef += 0.05;
+        }
+        else {
+          map.SetStatus(MP_INGAME);
+          map.Draw(std::pair<Point, Point>({.x=0, .y=0}, {.x=WINDOW_WIDTH-1, .y=WINDOW_HEIGHT-1}));
+          player.Restart();
+        }
         break;
     }
 
