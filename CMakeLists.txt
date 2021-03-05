@@ -12,6 +12,7 @@ set(SOURCE_FILES
         Image.cpp
         Player.cpp
         Map.cpp
+        Menu.cpp
         main.cpp)
 
 set(ADDITIONAL_INCLUDE_DIRS

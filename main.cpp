@@ -2,6 +2,7 @@
 #include "Image.h"
 #include "Player.h"
 #include "Map.h"
+#include "Menu.h"
 
 #define GLFW_DLL
 #include <GLFW/glfw3.h>
@@ -54,6 +55,16 @@ void processPlayerMovement(Player &player, Map &map)
     player.ProcessInput(MovementDir::LEFT, map);
   else if (Input.keys[GLFW_KEY_D])
     player.ProcessInput(MovementDir::RIGHT, map);
+}
+
+void processMenuNovigation(Menu &menu)
+{ 
+  if (Input.keys[GLFW_KEY_ENTER])
+    menu.Enter();
+  else if (Input.keys[GLFW_KEY_W])
+    menu.Up();
+  else if (Input.keys[GLFW_KEY_S])
+    menu.Down();
 }
 
 void OnMouseButtonClicked(GLFWwindow* window, int button, int action, int mods)
