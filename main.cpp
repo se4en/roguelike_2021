@@ -166,17 +166,20 @@ int main(int argc, char** argv)
   // init map
   std::map<std::string, std::string> tiles {
     {"lava", "./resources/lava.png"},
-    {"floor", "./resources/tex.png"},
-    {"wall_0", "./resources/walls/0.png"},
-    {"wall_1", "./resources/walls/1.png"},
-    {"wall_2", "./resources/walls/2.png"},
-    {"wall_3", "./resources/walls/3.png"},
-    {"wall_4", "./resources/walls/4.png"},
-    {"wall_5", "./resources/walls/5.png"},
-    {"wall_6", "./resources/walls/6.png"},
-    {"wall_7", "./resources/walls/7.png"},
+    {"floor_1", "./resources/floor_1.png"},
+    {"floor_2", "./resources/floor_2.png"},
+    {"floor_3", "./resources/floor_3.png"},
+    {"floor_4", "./resources/floor_4.png"},
+    {"wall_A", "./resources/walls/A.png"},
+    {"wall_B", "./resources/walls/B.png"},
+    {"wall_C", "./resources/walls/C.png"},
+    {"wall_D", "./resources/walls/D.png"},
+    {"wall_E", "./resources/walls/E.png"},
+    {"wall_F", "./resources/walls/F.png"},
+    {"wall_G", "./resources/walls/G.png"},
+    {"wall_H", "./resources/walls/H.png"},
     {"door", "./resources/door.jpg"}, 
-    {"castle", "./resources/crab.png"}
+    {"castle", "./resources/door.jpg"}
   };
   std::map<int, std::string> levels {
     {1, "./resources/level_1.txt"}
@@ -203,7 +206,6 @@ int main(int argc, char** argv)
       map.Draw(player.GetLeftRight());
       player.Draw();
     }
-    
 
 
     switch (map.GetStatus()) {
@@ -254,6 +256,8 @@ int main(int argc, char** argv)
         }
         break;
     }
+
+    ++player.cntr;
 
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); GL_CHECK_ERRORS;
     glDrawPixels(WINDOW_WIDTH, WINDOW_HEIGHT, GL_RGBA, GL_UNSIGNED_BYTE, screenBuffer.Data()); GL_CHECK_ERRORS;

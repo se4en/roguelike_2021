@@ -11,6 +11,7 @@
 #include <list>
 
 #define WALLS_COUNT 8
+#define FLOORS_COUNT 4
 
 #define GLFW_DLL
 #include <GLFW/glfw3.h>
@@ -49,7 +50,7 @@ struct Map
 private:
   std::shared_ptr<Image> screen;
   Image lava;
-  Image floor;
+  Image* floors;
   Image* walls;
   Image door;
   Image castle;
@@ -58,6 +59,8 @@ private:
   int cur_level = 1;
   std::map<int, std::string> levels;
   std::string data;
+
+  bool _IsWall(int coord);
 };
 
 #endif // MAP_H

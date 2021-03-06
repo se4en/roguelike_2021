@@ -5,7 +5,7 @@
 #include <memory>
 
 constexpr int tileSize = 24;
-constexpr int playerSize = 20;
+constexpr int playerSize = 16;
 
 struct Point
 {

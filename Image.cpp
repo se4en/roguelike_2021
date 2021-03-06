@@ -36,8 +36,13 @@ Image::Image(const Image &other) {
   size = other.size;
   self_allocated = other.self_allocated;
   data = new Pixel[width*height];
-  for (int i=0; i<width*height; ++i)
-    data[i] = other.data[i];
+  for (int i=0; i<width*height; ++i) {
+    //data[i] = other.data[i];
+    data[i].r = other.data[i].r;
+    data[i].g = other.data[i].g;
+    data[i].b = other.data[i].b;
+    data[i].a = other.data[i].a;
+  }
 }
 
 int Image::Save(const std::string &a_path)

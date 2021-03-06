@@ -4,19 +4,23 @@ Map::Map(Image* Screen, std::map<std::string, std::string> Tiles,
       std::map<int, std::string> Levels) : 
     screen(Screen),
     lava(Image(Tiles["lava"])),
-    floor(Image(Tiles["floor"])),
     door(Image(Tiles["door"])),
     castle(Image(Tiles["castle"])),
     levels(Levels) {
-  walls = new Image[WALLS_COUNT];
-  walls[0] = Image(Tiles["wall_0"]);
-  walls[1] = Image(Tiles["wall_1"]);
-  walls[2] = Image(Tiles["wall_2"]);
-  walls[3] = Image(Tiles["wall_3"]);
-  walls[4] = Image(Tiles["wall_4"]);
-  walls[5] = Image(Tiles["wall_5"]);
-  walls[6] = Image(Tiles["wall_6"]);
-  walls[7] = Image(Tiles["wall_7"]);
+  floors = new Image[FLOORS_COUNT] {
+  Image(Tiles["floor_1"]),
+  Image(Tiles["floor_2"]),
+  Image(Tiles["floor_3"]),
+  Image(Tiles["floor_4"])};
+  walls = new Image[WALLS_COUNT] {
+  Image(Tiles["wall_A"]),
+  Image(Tiles["wall_B"]),
+  Image(Tiles["wall_C"]),
+  Image(Tiles["wall_D"]),
+  Image(Tiles["wall_E"]),
+  Image(Tiles["wall_F"]),
+  Image(Tiles["wall_G"]),
+  Image(Tiles["wall_H"])};
 }
 
 void Map::Draw(std::pair<Point, Point> pair, double coef) {
@@ -25,48 +29,60 @@ void Map::Draw(std::pair<Point, Point> pair, double coef) {
   Point left = pair.first;
   Point right = pair.second;
 
+  int ind;
+
   for(int y = left.y; y <= right.y; ++y) {
     for(int x = left.x; x <= right.x; ++x) {
-      switch(data[((WINDOW_HEIGHT - y)/tileSize)*(WINDOW_WIDTH/tileSize) + x/tileSize]) {
+      switch(data[((WINDOW_HEIGHT - y - 1)/tileSize)*(WINDOW_WIDTH/tileSize) + x/tileSize]) {
         case '.': case '@':
-          buf = floor.GetPixel(x%tileSize, tileSize - (y+1)%tileSize);
+          if (y%2) 
+            if (x%2)
+              ind = 1;
+            else 
+              ind = 0;
+          else 
+            if (x%2) 
+              ind = 3;
+            else 
+              ind = 2;
+          buf = floors[ind].GetPixel(x%tileSize, tileSize - (y-1)%tileSize - 1);
           break;
         case ' ':
-          buf = lava.GetPixel(x%tileSize, tileSize - (y+1)%tileSize);
+          buf = lava.GetPixel(x%tileSize, tileSize - (y-1)%tileSize-1);
           break;
-        case '0':
-          buf = walls[0].GetPixel(x%tileSize, tileSize - (y+1)%tileSize);
+        case 'A':
+          buf = walls[0].GetPixel(x%tileSize, tileSize - (y-1)%tileSize-1);
           break;
-        case '1':
-          buf = walls[1].GetPixel(x%tileSize, tileSize - (y+1)%tileSize);
+        case 'B':
+          buf = walls[1].GetPixel(x%tileSize, tileSize - (y-1)%tileSize-1);
           break;
-        case '2':
-          buf = walls[2].GetPixel(x%tileSize, tileSize - (y+1)%tileSize);
+        case 'C':
+          buf = walls[2].GetPixel(x%tileSize, tileSize - (y-1)%tileSize-1);
           break;
-        case '3':
-          buf = walls[3].GetPixel(x%tileSize, tileSize - (y+1)%tileSize);
+        case 'D':
+          buf = walls[3].GetPixel(x%tileSize, tileSize - (y-1)%tileSize-1);
           break;
-        case '4':
-          buf = walls[4].GetPixel(x%tileSize, tileSize - (y+1)%tileSize);
+        case 'E':
+          buf = walls[4].GetPixel(x%tileSize, tileSize - (y-1)%tileSize-1);
           break;
-        case '5':
-          buf = walls[5].GetPixel(x%tileSize, tileSize - (y+1)%tileSize);
+        case 'F':
+          buf = walls[5].GetPixel(x%tileSize, tileSize - (y-1)%tileSize-1);
           break;
-        case '6':
-          buf = walls[6].GetPixel(x%tileSize, tileSize - (y+1)%tileSize);
+        case 'G':
+          buf = walls[6].GetPixel(x%tileSize, tileSize - (y-1)%tileSize-1);
           break;
-        case '7':
-          buf = walls[7].GetPixel(x%tileSize, tileSize - (y+1)%tileSize);
+        case 'H':
+          buf = walls[7].GetPixel(x%tileSize, tileSize - (y-1)%tileSize-1);
           break;
         case '%':
-          buf = door.GetPixel(x%tileSize, tileSize - (y+1)%tileSize);
+          buf = door.GetPixel(x%tileSize, tileSize - (y-1)%tileSize-1);
           break;
         case 'x':
-          buf = castle.GetPixel(x%tileSize, tileSize - (y+1)%tileSize);
+          buf = castle.GetPixel(x%tileSize, tileSize - (y-1)%tileSize-1);
           break;
       }
       buf.r *= coef; buf.g *= coef; buf.b *= coef; buf.a *= coef;
-      screen.get()->PutPixel(x, y, buf);
+      screen.get()->PutPixel(x, y , buf);
     }
   }
 }
@@ -90,6 +106,16 @@ void Map::Dark2Level(double coef) {
   std::this_thread::sleep_for(std::chrono::milliseconds(40));
 }
 
+
+bool Map::_IsWall(int coord) {
+  return (
+    data[coord]=='A' || data[coord]=='B' || data[coord]=='C' || data[coord]=='D' ||
+    data[coord]=='E' || data[coord]=='F' || data[coord]=='G' || data[coord]=='H' ||
+    data[coord]=='G' || data[coord]=='K' || data[coord]=='L' || data[coord]=='M' ||
+    data[coord]=='N' || data[coord]=='O' || data[coord]=='P' || data[coord]=='%'
+  );
+}
+
 Actions Map::GetAction(Point newPoint, int level) {
   // checking for map end
   if (newPoint.x<0 || newPoint.x>WINDOW_WIDTH-playerSize || newPoint.y<0 || newPoint.y>WINDOW_HEIGHT-playerSize) {
@@ -104,8 +130,7 @@ Actions Map::GetAction(Point newPoint, int level) {
                     newPoint.x/tileSize;
   int right_up   = ((WINDOW_HEIGHT - newPoint.y - playerSize)/tileSize)*(WINDOW_WIDTH/tileSize) +
                     (newPoint.x + playerSize - 1)/tileSize;
-  if (data[left_down]=='#' || data[right_down]=='#' || data[left_up]=='#' || data[right_up]=='#' ||
-      data[left_down]=='%' || data[right_down]=='%' || data[left_up]=='%' || data[right_up]=='%') {
+  if (_IsWall(left_down) || _IsWall(right_down) || _IsWall(left_up) || _IsWall(right_up)) {
     return PL_STOP;
   }
   // checking for lava

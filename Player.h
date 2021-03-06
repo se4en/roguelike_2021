@@ -29,6 +29,7 @@ struct Player
     coords(Pos), 
     old_coords(Pos),
     status(ST_ON_RUN),
+    cntr(0),
     img(Image(P_path)) {};
 
   bool Moved() const;
@@ -38,6 +39,8 @@ struct Player
   void Restart();
   Status GetStatus() {return status;};
   Point GetCoords() {return coords;};
+
+  uint8_t cntr;
 private:
   Point coords {.x = 10, .y = 10};
   Point old_coords {.x = 10, .y = 10};
@@ -48,7 +51,6 @@ private:
   Image img; 
   std::shared_ptr<Image> screen;
   int move_speed = 4;
-
 };
 
 #endif //MAIN_PLAYER_H
