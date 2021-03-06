@@ -189,10 +189,12 @@ int main(int argc, char** argv)
   // init map
   std::map<std::string, std::string> tiles {
     {"lava", "./resources/lava.png"},
+    // FLOOR
     {"floor_1", "./resources/floor_1.png"},
     {"floor_2", "./resources/floor_2.png"},
     {"floor_3", "./resources/floor_3.png"},
     {"floor_4", "./resources/floor_4.png"},
+    // WALLS
     {"wall_A", "./resources/walls/A.png"},
     {"wall_B", "./resources/walls/B.png"},
     {"wall_C", "./resources/walls/C.png"},
@@ -201,8 +203,17 @@ int main(int argc, char** argv)
     {"wall_F", "./resources/walls/F.png"},
     {"wall_G", "./resources/walls/G.png"},
     {"wall_H", "./resources/walls/H.png"},
-    {"door", "./resources/door.jpg"}, 
-    {"castle", "./resources/door.jpg"}
+    // DOOR
+    {"door", "./resources/door.jpg"},
+    // CASTLE
+    {"castle", "./resources/door.jpg"},
+    // LETTERS
+    {"A", "./resources/font/letter-65.png"},
+    {"E", "./resources/font/letter-69.png"},
+    {"V", "./resources/font/letter-86.png"},
+    {"L", "./resources/font/letter-76.png"},
+    {"1", "./resources/font/letter-49.png"},
+    {"2", "./resources/font/letter-50.png"}
   };
   std::map<int, std::string> levels {
     {1, "./resources/level_1.txt"}
@@ -282,12 +293,15 @@ int main(int argc, char** argv)
         break;
 
       case MP_2DARK:
-        if (coef >= 0) {
+        if (coef>=0.999) {
+          map.LoadLevel(1);
+        }
+        else if (coef >= 0) {
           map.Map2Dark(coef);
           coef -= 0.01;
         }
         else {
-          map.LoadLevel(1);
+          map.PrintLevel1();
           map.SetStatus(MP_2LVL);
           coef = 0;
         }

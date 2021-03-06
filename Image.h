@@ -6,6 +6,7 @@
 
 constexpr int tileSize = 24;
 constexpr int playerSize = 16;
+constexpr int letterSize = 32;
 
 struct Point
 {

@@ -12,6 +12,7 @@
 
 #define WALLS_COUNT 8
 #define FLOORS_COUNT 4
+#define LETTERS_COUNT 6
 
 #define GLFW_DLL
 #include <GLFW/glfw3.h>
@@ -40,6 +41,10 @@ struct Map
 
   void Draw(std::pair<Point, Point>, double coef=1);
   void Map2Dark(double coef);
+  void PrintLevel1();
+  void PrintDie();
+  void PrintLevel2();
+  void PrintWin();
   void Dark2Level(double coef);
   void BreakDoor(Point curPps);
   Actions GetAction(Point possiblePoint, int level=1);
@@ -52,6 +57,7 @@ private:
   Image lava;
   Image* floors;
   Image* walls;
+  Image* letters;
   Image door;
   Image castle;
 

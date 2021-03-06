@@ -21,6 +21,13 @@ Map::Map(Image* Screen, std::map<std::string, std::string> Tiles,
   Image(Tiles["wall_F"]),
   Image(Tiles["wall_G"]),
   Image(Tiles["wall_H"])};
+  letters = new Image[LETTERS_COUNT] {
+  Image(Tiles["L"]),
+  Image(Tiles["E"]),
+  Image(Tiles["V"]),
+  Image(Tiles["L"]),
+  Image(Tiles["1"]),
+  Image(Tiles["2"])};
 }
 
 void Map::Draw(std::pair<Point, Point> pair, double coef) {
@@ -217,4 +224,36 @@ void Map::LoadLevel(int level) {
 Point Map::GetStart() {
   int pos = data.find("@");
   return Point{.x = tileSize*(pos%(WINDOW_WIDTH/tileSize)), .y = WINDOW_HEIGHT - tileSize*(pos/(WINDOW_HEIGHT/tileSize) + 1)};
+}
+
+
+void Map::PrintLevel1() {
+  int to_x = 100;
+  int to_y = 700;
+  Pixel buf;
+
+  // L
+  for(int y = to_y; y < to_y + letterSize; ++y) {
+    for(int x = to_x; x < to_x + letterSize; ++x) {
+      buf = letters[0].GetPixel(x%letterSize, letterSize - (y-1)%letterSize-1);
+      if (buf.r!=0 || buf.g!=0 || buf.b!=0) {
+        screen.get()->PutPixel(x, y, buf);
+      }
+    }
+  }  
+
+
+  std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+}
+
+void Map::PrintDie() {
+
+}
+
+void Map::PrintLevel2() {
+
+}
+
+void Map::PrintWin() {
+
 }
