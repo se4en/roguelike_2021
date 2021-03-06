@@ -254,6 +254,26 @@ int main(int argc, char** argv)
   bool flag_2 = false;
   bool flag_3 = false;
 
+  // LEVEL 1
+  map.Dark();
+  map.LoadLevel(1);
+  map.PrintLevel1();
+  glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); GL_CHECK_ERRORS;
+  glDrawPixels(WINDOW_WIDTH, WINDOW_HEIGHT, GL_RGBA, GL_UNSIGNED_BYTE, screenBuffer.Data()); GL_CHECK_ERRORS;
+  glfwSwapBuffers(window);
+  for (int f=1; f<50; f++)
+    std::this_thread::sleep_for(std::chrono::milliseconds(40));
+  map.SetStatus(MP_2LVL);
+  for (coef = 0; coef<=1; coef += 0.04) {
+    map.Dark2Level(coef);
+    map.PrintLevel1();
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); GL_CHECK_ERRORS;
+    glDrawPixels(WINDOW_WIDTH, WINDOW_HEIGHT, GL_RGBA, GL_UNSIGNED_BYTE, screenBuffer.Data()); GL_CHECK_ERRORS;
+  	glfwSwapBuffers(window);
+  }
+  map.SetStatus(MP_INGAME);
+  map.Draw(std::pair<Point, Point>({.x=0, .y=0}, {.x=WINDOW_WIDTH-1, .y=WINDOW_HEIGHT-1}));
+
   //game loop
 	while (!glfwWindowShouldClose(window)) {
 		GLfloat currentFrame = glfwGetTime();
@@ -261,6 +281,8 @@ int main(int argc, char** argv)
 		lastFrame = currentFrame;
     glfwPollEvents();
     
+    //if (map.GetStatus()==)
+
     if (player.GetStatus()==ST_ON_RUN) {
       processPlayerMovement(player, map);
       map.Draw(player.GetLeftRight());
@@ -277,7 +299,7 @@ int main(int argc, char** argv)
           case ST_DIED:
             map.Draw(player.GetLeftRight());
             map.LoadLevel(1);
-            // do something for dead
+            map.PrintLevel1();
             map.SetStatus(MP_2DARK);
             coef = 1;
             break;
@@ -293,11 +315,9 @@ int main(int argc, char** argv)
         break;
 
       case MP_2DARK:
-        if (coef>=0.999) {
-          map.LoadLevel(1);
-        }
-        else if (coef >= 0) {
+        if (coef >= 0) {
           map.Map2Dark(coef);
+          map.PrintLevel1();
           coef -= 0.01;
         }
         else {
@@ -310,7 +330,7 @@ int main(int argc, char** argv)
       case MP_2LVL:
         if (coef <= 1) {
           map.Dark2Level(coef);
-          coef += 0.05;
+          coef += 0.04;
         }
         else {
           map.SetStatus(MP_INGAME);

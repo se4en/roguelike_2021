@@ -45,6 +45,7 @@ struct Map
   void PrintDie();
   void PrintLevel2();
   void PrintWin();
+  void Dark();
   void Dark2Level(double coef);
   void BreakDoor(Point curPps);
   Actions GetAction(Point possiblePoint, int level=1);

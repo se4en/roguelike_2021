@@ -242,8 +242,8 @@ void Map::PrintLevel1() {
     }
   }  
 
-
-  std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+ 
+  //std::this_thread::sleep_for(std::chrono::milliseconds(1000));
 }
 
 void Map::PrintDie() {
@@ -256,4 +256,15 @@ void Map::PrintLevel2() {
 
 void Map::PrintWin() {
 
+}
+
+void Map::Dark() {
+  Pixel buf;
+
+  for(int y = 0; y < WINDOW_HEIGHT; ++y) {
+    for(int x = 0; x < WINDOW_WIDTH; ++x) {
+      buf = letters[1].GetPixel(0, 0);
+      screen.get()->PutPixel(x, y, buf);
+    }
+  }  
 }
