@@ -45,6 +45,7 @@ Image::Image(const Image &other) {
   }
 }
 
+
 int Image::Save(const std::string &a_path)
 {
   auto extPos = a_path.find_last_of('.');

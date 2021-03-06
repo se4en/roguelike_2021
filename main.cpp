@@ -45,16 +45,39 @@ void OnKeyboardPressed(GLFWwindow* window, int key, int scancode, int action, in
 
 void processPlayerMovement(Player &player, Map &map)
 { 
+  bool flag = false;
   if (Input.keys[GLFW_KEY_E])
     map.BreakDoor(player.GetCoords());
-  if (Input.keys[GLFW_KEY_W])
+  if (Input.keys[GLFW_KEY_W]) {
     player.ProcessInput(MovementDir::UP, map);
-  else if (Input.keys[GLFW_KEY_S])
+    if (player.icon==STAY_R)
+      player.icon = RUN_R;
+    else if (player.icon==STAY_L)
+      player.icon = RUN_L;
+    flag = true;
+  }
+  else if (Input.keys[GLFW_KEY_S]) {
     player.ProcessInput(MovementDir::DOWN, map);
-  if (Input.keys[GLFW_KEY_A])
+    if (player.icon==STAY_R)
+      player.icon = RUN_R;
+    else if (player.icon==STAY_L)
+      player.icon = RUN_L;
+    flag = true;
+  }
+  if (Input.keys[GLFW_KEY_A]) {
     player.ProcessInput(MovementDir::LEFT, map);
-  else if (Input.keys[GLFW_KEY_D])
+    flag = true;
+  }
+  else if (Input.keys[GLFW_KEY_D]) {
     player.ProcessInput(MovementDir::RIGHT, map);
+    flag = true;
+  }
+  if (!flag) {
+    if (player.icon==RUN_R)
+      player.icon = STAY_R;
+    else if (player.icon==RUN_L)
+      player.icon = STAY_L;
+  }
 }
 
 void processMenuNovigation(Menu &menu)
@@ -189,10 +212,36 @@ int main(int argc, char** argv)
   map.Draw(std::pair<Point, Point>({.x=0, .y=0}, {.x=WINDOW_WIDTH-1, .y=WINDOW_HEIGHT-1}));
 
   // init player
-	Player player(&screenBuffer, map.GetStart(), "./resources/crab.png");
+  std::map<std::string, std::string> icons {
+    {"stay_r-0", "./resources/player/stay_r-0.png"},
+    {"stay_r-1", "./resources/player/stay_r-1.png"},
+    {"stay_r-2", "./resources/player/stay_r-2.png"},
+    {"stay_r-3", "./resources/player/stay_r-3.png"},
+    {"stay_l-0", "./resources/player/stay_l-0.png"},
+    {"stay_l-1", "./resources/player/stay_l-1.png"},
+    {"stay_l-2", "./resources/player/stay_l-2.png"},
+    {"stay_l-3", "./resources/player/stay_l-3.png"},
+    {"run_r-0", "./resources/player/run_r-0.png"},
+    {"run_r-1", "./resources/player/run_r-1.png"},
+    {"run_r-2", "./resources/player/run_r-2.png"},
+    {"run_r-3", "./resources/player/run_r-3.png"},
+    {"run_r-4", "./resources/player/run_r-4.png"},
+    {"run_r-5", "./resources/player/run_r-5.png"},
+    {"run_l-0", "./resources/player/run_l-0.png"},
+    {"run_l-1", "./resources/player/run_l-1.png"},
+    {"run_l-2", "./resources/player/run_l-2.png"},
+    {"run_l-3", "./resources/player/run_l-3.png"},
+    {"run_l-4", "./resources/player/run_l-4.png"},
+    {"run_l-5", "./resources/player/run_l-5.png"}
+  };
+	Player player(&screenBuffer, map.GetStart(), icons);
 
   glViewport(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT);  GL_CHECK_ERRORS;
   glClearColor(0.0f, 0.0f, 0.0f, 1.0f); GL_CHECK_ERRORS;
+
+  bool flag_1 = false;
+  bool flag_2 = false;
+  bool flag_3 = false;
 
   //game loop
 	while (!glfwWindowShouldClose(window)) {
@@ -257,7 +306,23 @@ int main(int argc, char** argv)
         break;
     }
 
-    ++player.cntr;
+    // step
+    if (flag_1) {
+      if (flag_2) {
+        if (flag_3) {
+          ++player.cntr;
+          flag_1 = false;
+          flag_2 = false;       
+          flag_3 = false;
+        }
+        else 
+          flag_3 = true;
+      }
+      else flag_2 = true;
+    }
+    else {
+      flag_1 = true;
+    }  
 
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); GL_CHECK_ERRORS;
     glDrawPixels(WINDOW_WIDTH, WINDOW_HEIGHT, GL_RGBA, GL_UNSIGNED_BYTE, screenBuffer.Data()); GL_CHECK_ERRORS;

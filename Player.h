@@ -6,12 +6,16 @@
 #include <tuple>
 #include <algorithm> 
 
+#define RUN_CNT 6
+#define STAY_CNT 4
+
 enum class MovementDir
 {
   UP,
   DOWN,
   LEFT,
-  RIGHT
+  RIGHT, 
+  NONE
 };
 
 enum Status
@@ -21,16 +25,17 @@ enum Status
   ST_WON
 };
 
+enum Icon
+{
+  STAY_R,
+  STAY_L,
+  RUN_R, 
+  RUN_L
+};
+
 struct Player
 {
-  Player(Image* Screen, Point Pos, const std::string &P_path) :
-    screen(Screen),
-    start(Pos), 
-    coords(Pos), 
-    old_coords(Pos),
-    status(ST_ON_RUN),
-    cntr(0),
-    img(Image(P_path)) {};
+  Player(Image* Screen, Point Pos, std::map<std::string, std::string> Tiles);
 
   bool Moved() const;
   void ProcessInput(MovementDir dir, Map &map);
@@ -41,6 +46,7 @@ struct Player
   Point GetCoords() {return coords;};
 
   uint8_t cntr;
+  Icon icon;
 private:
   Point coords {.x = 10, .y = 10};
   Point old_coords {.x = 10, .y = 10};
@@ -48,7 +54,12 @@ private:
   Pixel color {.r = 255, .g = 255, .b = 0, .a = 255};
   Status status;
 
-  Image img; 
+
+  Image* stay_r;
+  Image* stay_l;
+  Image* run_r;
+  Image* run_l;
+
   std::shared_ptr<Image> screen;
   int move_speed = 4;
 };
