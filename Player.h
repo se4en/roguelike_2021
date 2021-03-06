@@ -47,12 +47,12 @@ struct Player
 
   uint8_t cntr;
   Icon icon;
+  Status status;
 private:
   Point coords {.x = 10, .y = 10};
   Point old_coords {.x = 10, .y = 10};
   Point start {.x = 10, .y = 10};
   Pixel color {.r = 255, .g = 255, .b = 0, .a = 255};
-  Status status;
 
 
   Image* stay_r;

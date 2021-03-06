@@ -213,7 +213,18 @@ int main(int argc, char** argv)
     {"V", "./resources/font/letter-86.png"},
     {"L", "./resources/font/letter-76.png"},
     {"1", "./resources/font/letter-49.png"},
-    {"2", "./resources/font/letter-50.png"}
+    {"2", "./resources/font/letter-50.png"},
+    {"Y", "./resources/font/letter-89.png"},
+    {"O", "./resources/font/letter-79.png"},
+    {"U", "./resources/font/letter-85.png"},
+    {"D", "./resources/font/letter-68.png"},
+    {"I", "./resources/font/letter-73.png"},
+    {"!", "./resources/font/letter-33.png"},
+    {"W", "./resources/font/letter-87.png"},
+    {"N", "./resources/font/letter-78.png"},
+    {"T", "./resources/font/letter-84.png"},
+    {"B", "./resources/font/letter-66.png"},
+    {")", "./resources/font/letter-1.png"}
   };
   std::map<int, std::string> levels {
     {1, "./resources/level_1.txt"}
@@ -274,6 +285,8 @@ int main(int argc, char** argv)
   map.SetStatus(MP_INGAME);
   map.Draw(std::pair<Point, Point>({.x=0, .y=0}, {.x=WINDOW_WIDTH-1, .y=WINDOW_HEIGHT-1}));
 
+  int level = 1;
+
   //game loop
 	while (!glfwWindowShouldClose(window)) {
 		GLfloat currentFrame = glfwGetTime();
@@ -299,7 +312,6 @@ int main(int argc, char** argv)
           case ST_DIED:
             map.Draw(player.GetLeftRight());
             map.LoadLevel(1);
-            map.PrintLevel1();
             map.SetStatus(MP_2DARK);
             coef = 1;
             break;
@@ -315,13 +327,29 @@ int main(int argc, char** argv)
         break;
 
       case MP_2DARK:
-        if (coef >= 0) {
+        if (coef >= 0.5) {
           map.Map2Dark(coef);
-          map.PrintLevel1();
+          if (player.GetStatus()==ST_DIE)
+            map.PrintDie();
+          coef -= 0.01;
+        }
+        else if (coef >= 0) {
+          map.Map2Dark(coef);
+          if (level==1)
+            map.PrintLevel1();
+          else
+            map.PrintLevel2();
           coef -= 0.01;
         }
         else {
-          map.PrintLevel1();
+          if (level==1) {
+            map.PrintLevel1();
+            map.LoadLevel(1);
+          }
+          else {
+            map.PrintLevel2();
+            map.LoadLevel(2);
+          }
           map.SetStatus(MP_2LVL);
           coef = 0;
         }
@@ -330,10 +358,15 @@ int main(int argc, char** argv)
       case MP_2LVL:
         if (coef <= 1) {
           map.Dark2Level(coef);
+          if (level==1)
+            map.PrintLevel1();
+          else
+            map.PrintLevel2();
           coef += 0.04;
         }
         else {
           map.SetStatus(MP_INGAME);
+          player.status = ST_ON_RUN;
           map.Draw(std::pair<Point, Point>({.x=0, .y=0}, {.x=WINDOW_WIDTH-1, .y=WINDOW_HEIGHT-1}));
           player.Restart();
         }

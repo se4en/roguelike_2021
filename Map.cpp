@@ -27,7 +27,13 @@ Map::Map(Image* Screen, std::map<std::string, std::string> Tiles,
   Image(Tiles["V"]),
   Image(Tiles["L"]),
   Image(Tiles["1"]),
-  Image(Tiles["2"])};
+  Image(Tiles["2"]),
+  Image(Tiles["Y"]),
+  Image(Tiles["O"]),
+  Image(Tiles["U"]),
+  Image(Tiles["D"]),
+  Image(Tiles["I"]),
+  Image(Tiles["!"])};
 }
 
 void Map::Draw(std::pair<Point, Point> pair, double coef) {
@@ -294,7 +300,79 @@ void Map::PrintLevel1() {
 }
 
 void Map::PrintDie() {
+  int to_x = 325;
+  int to_y = 600;
+  Pixel buf;
 
+  // Y
+  for(int y = to_y; y < to_y + letterSize; ++y) {
+    for(int x = to_x; x < to_x + letterSize; ++x) {
+      buf = letters[6].GetPixel(x%to_x, letterSize - (y)%to_y - 1);
+      if (buf.r!=0 || buf.g!=0 || buf.b!=0) {
+        screen.get()->PutPixel(x, y, buf);
+      }
+    }
+  }  
+  to_x += letterSize + 5;
+  // O
+  for(int y = to_y; y < to_y + letterSize; ++y) {
+    for(int x = to_x; x < to_x + letterSize; ++x) {
+      buf = letters[7].GetPixel(x%to_x, letterSize - (y)%to_y - 1);
+      if (buf.r!=0 || buf.g!=0 || buf.b!=0) {
+        screen.get()->PutPixel(x, y, buf);
+      }
+    }
+  }  
+  to_x += letterSize + 5;
+  // U
+  for(int y = to_y; y < to_y + letterSize; ++y) {
+    for(int x = to_x; x < to_x + letterSize; ++x) {
+      buf = letters[8].GetPixel(x%to_x, letterSize - (y)%to_y - 1);
+      if (buf.r!=0 || buf.g!=0 || buf.b!=0) {
+        screen.get()->PutPixel(x, y, buf);
+      }
+    }
+  } 
+  to_x += letterSize + 20;
+  // D
+  for(int y = to_y; y < to_y + letterSize; ++y) {
+    for(int x = to_x; x < to_x + letterSize; ++x) {
+      buf = letters[9].GetPixel(x%to_x, letterSize - (y)%to_y - 1);
+      if (buf.r!=0 || buf.g!=0 || buf.b!=0) {
+        screen.get()->PutPixel(x, y, buf);
+      }
+    }
+  } 
+  to_x += letterSize + 5;
+  // I
+  for(int y = to_y; y < to_y + letterSize; ++y) {
+    for(int x = to_x; x < to_x + letterSize; ++x) {
+      buf = letters[10].GetPixel(x%to_x, letterSize - (y)%to_y - 1);
+      if (buf.r!=0 || buf.g!=0 || buf.b!=0) {
+        screen.get()->PutPixel(x, y, buf);
+      }
+    }
+  } 
+  to_x += letterSize + 5;
+  // E
+  for(int y = to_y; y < to_y + letterSize; ++y) {
+    for(int x = to_x; x < to_x + letterSize; ++x) {
+      buf = letters[1].GetPixel(x%to_x, letterSize - (y)%to_y - 1);
+      if (buf.r!=0 || buf.g!=0 || buf.b!=0) {
+        screen.get()->PutPixel(x, y, buf);
+      }
+    }
+  } 
+  to_x += letterSize + 20;
+  // !
+  for(int y = to_y; y < to_y + letterSize; ++y) {
+    for(int x = to_x; x < to_x + letterSize; ++x) {
+      buf = letters[11].GetPixel(x%to_x, letterSize - (y)%to_y - 1);
+      if (buf.r!=0 || buf.g!=0 || buf.b!=0) {
+        screen.get()->PutPixel(x, y, buf);
+      }
+    }
+  } 
 }
 
 void Map::PrintLevel2() {
@@ -364,7 +442,156 @@ void Map::PrintLevel2() {
 }
 
 void Map::PrintWin() {
+  int to_x = 325;
+  int to_y = 600;
+  Pixel buf;
 
+  // Y
+  for(int y = to_y; y < to_y + letterSize; ++y) {
+    for(int x = to_x; x < to_x + letterSize; ++x) {
+      buf = letters[6].GetPixel(x%to_x, letterSize - (y)%to_y - 1);
+      if (buf.r!=0 || buf.g!=0 || buf.b!=0) {
+        screen.get()->PutPixel(x, y, buf);
+      }
+    }
+  }  
+  to_x += letterSize + 5;
+  // O
+  for(int y = to_y; y < to_y + letterSize; ++y) {
+    for(int x = to_x; x < to_x + letterSize; ++x) {
+      buf = letters[7].GetPixel(x%to_x, letterSize - (y)%to_y - 1);
+      if (buf.r!=0 || buf.g!=0 || buf.b!=0) {
+        screen.get()->PutPixel(x, y, buf);
+      }
+    }
+  }  
+  to_x += letterSize + 5;
+  // U
+  for(int y = to_y; y < to_y + letterSize; ++y) {
+    for(int x = to_x; x < to_x + letterSize; ++x) {
+      buf = letters[8].GetPixel(x%to_x, letterSize - (y)%to_y - 1);
+      if (buf.r!=0 || buf.g!=0 || buf.b!=0) {
+        screen.get()->PutPixel(x, y, buf);
+      }
+    }
+  } 
+  to_x += letterSize + 20;
+  // W
+  for(int y = to_y; y < to_y + letterSize; ++y) {
+    for(int x = to_x; x < to_x + letterSize; ++x) {
+      buf = letters[12].GetPixel(x%to_x, letterSize - (y)%to_y - 1);
+      if (buf.r!=0 || buf.g!=0 || buf.b!=0) {
+        screen.get()->PutPixel(x, y, buf);
+      }
+    }
+  } 
+  to_x += letterSize + 5;
+  // I
+  for(int y = to_y; y < to_y + letterSize; ++y) {
+    for(int x = to_x; x < to_x + letterSize; ++x) {
+      buf = letters[10].GetPixel(x%to_x, letterSize - (y)%to_y - 1);
+      if (buf.r!=0 || buf.g!=0 || buf.b!=0) {
+        screen.get()->PutPixel(x, y, buf);
+      }
+    }
+  } 
+  to_x += letterSize + 5;
+  // N
+  for(int y = to_y; y < to_y + letterSize; ++y) {
+    for(int x = to_x; x < to_x + letterSize; ++x) {
+      buf = letters[13].GetPixel(x%to_x, letterSize - (y)%to_y - 1);
+      if (buf.r!=0 || buf.g!=0 || buf.b!=0) {
+        screen.get()->PutPixel(x, y, buf);
+      }
+    }
+  } 
+  to_x += letterSize + 20;
+  // !
+  for(int y = to_y; y < to_y + letterSize; ++y) {
+    for(int x = to_x; x < to_x + letterSize; ++x) {
+      buf = letters[11].GetPixel(x%to_x, letterSize - (y)%to_y - 1);
+      if (buf.r!=0 || buf.g!=0 || buf.b!=0) {
+        screen.get()->PutPixel(x, y, buf);
+      }
+    }
+  } 
+}
+
+
+void Map::PrintNotBad() {
+  int to_x = 325;
+  int to_y = 600;
+  Pixel buf;
+
+  // N
+  for(int y = to_y; y < to_y + letterSize; ++y) {
+    for(int x = to_x; x < to_x + letterSize; ++x) {
+      buf = letters[13].GetPixel(x%to_x, letterSize - (y)%to_y - 1);
+      if (buf.r!=0 || buf.g!=0 || buf.b!=0) {
+        screen.get()->PutPixel(x, y, buf);
+      }
+    }
+  }  
+  to_x += letterSize + 5;
+  // O
+  for(int y = to_y; y < to_y + letterSize; ++y) {
+    for(int x = to_x; x < to_x + letterSize; ++x) {
+      buf = letters[7].GetPixel(x%to_x, letterSize - (y)%to_y - 1);
+      if (buf.r!=0 || buf.g!=0 || buf.b!=0) {
+        screen.get()->PutPixel(x, y, buf);
+      }
+    }
+  }  
+  to_x += letterSize + 5;
+  // T
+  for(int y = to_y; y < to_y + letterSize; ++y) {
+    for(int x = to_x; x < to_x + letterSize; ++x) {
+      buf = letters[14].GetPixel(x%to_x, letterSize - (y)%to_y - 1);
+      if (buf.r!=0 || buf.g!=0 || buf.b!=0) {
+        screen.get()->PutPixel(x, y, buf);
+      }
+    }
+  } 
+  to_x += letterSize + 20;
+  // B
+  for(int y = to_y; y < to_y + letterSize; ++y) {
+    for(int x = to_x; x < to_x + letterSize; ++x) {
+      buf = letters[15].GetPixel(x%to_x, letterSize - (y)%to_y - 1);
+      if (buf.r!=0 || buf.g!=0 || buf.b!=0) {
+        screen.get()->PutPixel(x, y, buf);
+      }
+    }
+  } 
+  to_x += letterSize + 5;
+  // A
+  for(int y = to_y; y < to_y + letterSize; ++y) {
+    for(int x = to_x; x < to_x + letterSize; ++x) {
+      buf = letters[0].GetPixel(x%to_x, letterSize - (y)%to_y - 1);
+      if (buf.r!=0 || buf.g!=0 || buf.b!=0) {
+        screen.get()->PutPixel(x, y, buf);
+      }
+    }
+  } 
+  to_x += letterSize + 5;
+  // D
+  for(int y = to_y; y < to_y + letterSize; ++y) {
+    for(int x = to_x; x < to_x + letterSize; ++x) {
+      buf = letters[9].GetPixel(x%to_x, letterSize - (y)%to_y - 1);
+      if (buf.r!=0 || buf.g!=0 || buf.b!=0) {
+        screen.get()->PutPixel(x, y, buf);
+      }
+    }
+  } 
+  to_x += letterSize + 20;
+  // !
+  for(int y = to_y; y < to_y + letterSize; ++y) {
+    for(int x = to_x; x < to_x + letterSize; ++x) {
+      buf = letters[16].GetPixel(x%to_x, letterSize - (y)%to_y - 1);
+      if (buf.r!=0 || buf.g!=0 || buf.b!=0) {
+        screen.get()->PutPixel(x, y, buf);
+      }
+    }
+  } 
 }
 
 void Map::Dark() {

@@ -12,7 +12,7 @@
 
 #define WALLS_COUNT 8
 #define FLOORS_COUNT 4
-#define LETTERS_COUNT 6
+#define LETTERS_COUNT 17
 
 #define GLFW_DLL
 #include <GLFW/glfw3.h>
@@ -46,6 +46,7 @@ struct Map
   void PrintLevel2();
   void PrintWin();
   void Dark();
+  void PrintNotBad();
   void Dark2Level(double coef);
   void BreakDoor(Point curPps);
   Actions GetAction(Point possiblePoint, int level=1);
