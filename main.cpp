@@ -167,7 +167,14 @@ int main(int argc, char** argv)
   std::map<std::string, std::string> tiles {
     {"lava", "./resources/lava.png"},
     {"floor", "./resources/tex.png"},
-    {"wall", "./resources/wall.jpg"}, 
+    {"wall_0", "./resources/walls/0.png"},
+    {"wall_1", "./resources/walls/1.png"},
+    {"wall_2", "./resources/walls/2.png"},
+    {"wall_3", "./resources/walls/3.png"},
+    {"wall_4", "./resources/walls/4.png"},
+    {"wall_5", "./resources/walls/5.png"},
+    {"wall_6", "./resources/walls/6.png"},
+    {"wall_7", "./resources/walls/7.png"},
     {"door", "./resources/door.jpg"}, 
     {"castle", "./resources/crab.png"}
   };

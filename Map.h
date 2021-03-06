@@ -8,6 +8,9 @@
 #include <map>
 #include <chrono>
 #include <thread>
+#include <list>
+
+#define WALLS_COUNT 8
 
 #define GLFW_DLL
 #include <GLFW/glfw3.h>
@@ -32,15 +35,7 @@ enum GameStatus
 struct Map
 {
   Map(Image* Screen, std::map<std::string, std::string> Tiles, 
-      std::map<int, std::string> Levels) :
-    screen(Screen),
-    lava(Image(Tiles["lava"])),
-    floor(Image(Tiles["floor"])),
-    wall(Image(Tiles["wall"])),
-    door(Image(Tiles["door"])),
-    castle(Image(Tiles["castle"])),
-    levels(Levels),
-    cur_level(1) {};
+      std::map<int, std::string> Levels);
 
   void Draw(std::pair<Point, Point>, double coef=1);
   void Map2Dark(double coef);
@@ -55,12 +50,12 @@ private:
   std::shared_ptr<Image> screen;
   Image lava;
   Image floor;
-  Image wall;
+  Image* walls;
   Image door;
   Image castle;
 
   GameStatus status = MP_INGAME;
-  int cur_level;
+  int cur_level = 1;
   std::map<int, std::string> levels;
   std::string data;
 };

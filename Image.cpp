@@ -7,7 +7,6 @@
 
 #include <iostream>
 
-
 Image::Image(const std::string &a_path)
 {
   if((data = (Pixel*)stbi_load(a_path.c_str(), &width, &height, &channels, sizeof(Pixel))) != nullptr)
@@ -30,6 +29,16 @@ Image::Image(int a_width, int a_height, int a_channels)
   }
 }
 
+Image::Image(const Image &other) {
+  width = other.width;
+  height = other.height;
+  channels = other.channels;
+  size = other.size;
+  self_allocated = other.self_allocated;
+  data = new Pixel[width*height];
+  for (int i=0; i<width*height; ++i)
+    data[i] = other.data[i];
+}
 
 int Image::Save(const std::string &a_path)
 {

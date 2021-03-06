@@ -1,5 +1,24 @@
 #include "Map.h"
 
+Map::Map(Image* Screen, std::map<std::string, std::string> Tiles, 
+      std::map<int, std::string> Levels) : 
+    screen(Screen),
+    lava(Image(Tiles["lava"])),
+    floor(Image(Tiles["floor"])),
+    door(Image(Tiles["door"])),
+    castle(Image(Tiles["castle"])),
+    levels(Levels) {
+  walls = new Image[WALLS_COUNT];
+  walls[0] = Image(Tiles["wall_0"]);
+  walls[1] = Image(Tiles["wall_1"]);
+  walls[2] = Image(Tiles["wall_2"]);
+  walls[3] = Image(Tiles["wall_3"]);
+  walls[4] = Image(Tiles["wall_4"]);
+  walls[5] = Image(Tiles["wall_5"]);
+  walls[6] = Image(Tiles["wall_6"]);
+  walls[7] = Image(Tiles["wall_7"]);
+}
+
 void Map::Draw(std::pair<Point, Point> pair, double coef) {
   Pixel buf;
 
@@ -15,8 +34,29 @@ void Map::Draw(std::pair<Point, Point> pair, double coef) {
         case ' ':
           buf = lava.GetPixel(x%tileSize, tileSize - (y+1)%tileSize);
           break;
-        case '#':
-          buf = wall.GetPixel(x%tileSize, tileSize - (y+1)%tileSize);
+        case '0':
+          buf = walls[0].GetPixel(x%tileSize, tileSize - (y+1)%tileSize);
+          break;
+        case '1':
+          buf = walls[1].GetPixel(x%tileSize, tileSize - (y+1)%tileSize);
+          break;
+        case '2':
+          buf = walls[2].GetPixel(x%tileSize, tileSize - (y+1)%tileSize);
+          break;
+        case '3':
+          buf = walls[3].GetPixel(x%tileSize, tileSize - (y+1)%tileSize);
+          break;
+        case '4':
+          buf = walls[4].GetPixel(x%tileSize, tileSize - (y+1)%tileSize);
+          break;
+        case '5':
+          buf = walls[5].GetPixel(x%tileSize, tileSize - (y+1)%tileSize);
+          break;
+        case '6':
+          buf = walls[6].GetPixel(x%tileSize, tileSize - (y+1)%tileSize);
+          break;
+        case '7':
+          buf = walls[7].GetPixel(x%tileSize, tileSize - (y+1)%tileSize);
           break;
         case '%':
           buf = door.GetPixel(x%tileSize, tileSize - (y+1)%tileSize);

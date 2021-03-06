@@ -25,8 +25,10 @@ constexpr Pixel backgroundColor{0, 0, 0, 0};
 
 struct Image
 {
+  Image() {};
   Image(const std::string &a_path);
   Image(int a_width, int a_height, int a_channels);
+  Image(const Image &other);
 
   int Save(const std::string &a_path);
 
