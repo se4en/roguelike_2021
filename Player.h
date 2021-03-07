@@ -36,6 +36,7 @@ enum Icon
 struct Player
 {
   Player(Image* Screen, Point Pos, std::map<std::string, std::string> Tiles);
+  ~Player();
 
   bool Moved() const;
   void ProcessInput(MovementDir dir, Map &map);

@@ -63,6 +63,13 @@ Map::Map(Image* Screen, std::map<std::string, std::string> Tiles,
   Image(Tiles[")"])}; // 16
 }
 
+Map::~Map() {
+  delete[] lava;
+  delete[] floors;
+  delete[] walls;
+  delete[] letters;
+}
+
 void Map::Draw(std::pair<Point, Point> pair, double coef) {
   Pixel buf;
 

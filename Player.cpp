@@ -38,6 +38,13 @@ Player::Player(Image* Screen, Point Pos, std::map<std::string, std::string> Tile
   Image(Tiles["run_l-5"])};
 }
 
+Player::~Player() {
+  delete[] stay_r;
+  delete[] stay_l;
+  delete[] run_r;
+  delete[] run_l;
+}
+
 bool Player::Moved() const {
   return !(coords.x == old_coords.x && coords.y == old_coords.y);
 }
