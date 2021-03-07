@@ -1,0 +1,40 @@
+ACCCCCCCCCCCCCCCCCCCxCCCCCCCCCCCCCCCCCCD
+A        F.......%.....%..... .........E
+A........F..FFFFFF.. ..FFFF.. .........E
+A........F.......F.. ..F.....FFFFFFFF..E
+A..FFF...F.......F.. ..F........... %..E
+A....F..FFFFFFF..F.. ..FFF%F..FFFFFFF..E
+AFF..F..F.....F..F.. ..F...F..F.....F..E
+A.%..F..F..F.....F.. ..F...F..F.....F..E
+AFFFFF..F..FFF...F.. ..F..FFF%F..F..F..E
+A.......F.....F..F.. ..F......F..F..F..E
+A.......F.....F..%.. ..%...F..F..F..F..E
+A.           .FFFFFFFFFFFFFF..F..F..F..E
+A.F.....F.....F........... F..F..F..F..E
+A.F.....F.....F..FFFFFFF...F..F..F..F..E
+A....F..F..FFFF..F.. ..FFF.F..F..F..%..E
+A....F..F..F..F..%.. ..%.F.F..F..F..F..E
+AFFFFFF.F..F..FFFF.. ..F.F.F..F.....F..E
+A.....F.F..F..F..F.. ..F.F.F..F..FFFFFFE
+A.....F.FFFF..F..F.. ..F.F....F..F.....E
+A..F..F.......%..F.. ..F.FFFFFF..F.....E
+A..F..FFFFFFFFF..F.. ..F.........F..F..E
+A..F..........F..F.. ..F.........F..F..E
+A..F..........F..F.. ..FFFFFFFFFFF..F..E
+A..FFFFFFFFF.....%.. ..%............F..E
+A..........F.....F.. ..F............F..E
+A..........FFFFFFFFFFFFFFFFFFFFFFFF%F..E
+AFFFFFFFFF%F................... ..F.F..E
+A.....   ..F..FFFFFFFFFF.......F..F.F..E
+A..........F..F..F.. ..F..FFFFFF..F%F..E
+A..FFFFFF..F..%..%.. ..%..F....F....F..E
+A..F....F..F..F..F.. ..F..F.FF.FFFFFF..E
+A.......F..F..%..F.. ..F....F%......F..E
+AFFFFF..FFFFFFFFFF.. ..F..FFFFFFFF..F..E
+A.......F..F.....F.. ..F..F.....F...F..E
+A..FFFFFF..F.....F.. ..F........F..FF..E
+A..F.......F..F..F.. ..F.....F..%...F..E
+A..FFFFFF.....F..F.. ..FFFFFFFFFFFFFF..E
+A.......F..F..F..F.. ..F...............E
+A..........%..F..%..@..%...............E
+AFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFE

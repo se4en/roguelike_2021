@@ -208,26 +208,27 @@ int main(int argc, char** argv)
     // CASTLE
     {"castle", "./resources/door.jpg"},
     // LETTERS
-    {"A", "./resources/font/letter-65.png"},
-    {"E", "./resources/font/letter-69.png"},
-    {"V", "./resources/font/letter-86.png"},
-    {"L", "./resources/font/letter-76.png"},
-    {"1", "./resources/font/letter-49.png"},
-    {"2", "./resources/font/letter-50.png"},
-    {"Y", "./resources/font/letter-89.png"},
-    {"O", "./resources/font/letter-79.png"},
-    {"U", "./resources/font/letter-85.png"},
-    {"D", "./resources/font/letter-68.png"},
-    {"I", "./resources/font/letter-73.png"},
-    {"!", "./resources/font/letter-33.png"},
-    {"W", "./resources/font/letter-87.png"},
-    {"N", "./resources/font/letter-78.png"},
-    {"T", "./resources/font/letter-84.png"},
-    {"B", "./resources/font/letter-66.png"},
-    {")", "./resources/font/letter-1.png"}
+    {"A", "./resources/font/letter-65.png"}, // 0
+    {"E", "./resources/font/letter-69.png"}, // 1
+    {"V", "./resources/font/letter-86.png"}, // 2
+    {"L", "./resources/font/letter-76.png"}, // 3
+    {"1", "./resources/font/letter-49.png"}, // 4 
+    {"2", "./resources/font/letter-50.png"}, // 5
+    {"Y", "./resources/font/letter-89.png"}, // 6
+    {"O", "./resources/font/letter-79.png"}, // 7
+    {"U", "./resources/font/letter-85.png"}, // 8
+    {"D", "./resources/font/letter-68.png"}, // 9
+    {"I", "./resources/font/letter-73.png"}, // 10
+    {"!", "./resources/font/letter-33.png"}, // 11
+    {"W", "./resources/font/letter-87.png"}, // 11
+    {"N", "./resources/font/letter-78.png"}, // 12
+    {"T", "./resources/font/letter-84.png"}, // 13
+    {"B", "./resources/font/letter-66.png"}, // 14
+    {")", "./resources/font/letter-1.png"}  // 15
   };
   std::map<int, std::string> levels {
-    {1, "./resources/level_1.txt"}
+    {1, "./resources/level_1.txt"},
+    {2, "./resources/level_2.txt"}
   };
   Map map(&screenBuffer, tiles, levels);
   map.LoadLevel(1);
@@ -284,6 +285,7 @@ int main(int argc, char** argv)
   }
   map.SetStatus(MP_INGAME);
   map.Draw(std::pair<Point, Point>({.x=0, .y=0}, {.x=WINDOW_WIDTH-1, .y=WINDOW_HEIGHT-1}));
+  player.Restart();
 
   int level = 1;
 
@@ -311,15 +313,15 @@ int main(int argc, char** argv)
             break;
           case ST_DIED:
             map.Draw(player.GetLeftRight());
-            map.LoadLevel(1);
             map.SetStatus(MP_2DARK);
             coef = 1;
             break;
           case ST_WON:
             map.Draw(player.GetLeftRight());
-            map.LoadLevel(1);
-            // do somethink for win
-            //player.Restart();
+            level++;
+            //if (level<3) {
+            //  map.LoadLevel(2);
+            std::cout << level << std::endl;
             map.SetStatus(MP_2DARK);
             coef = 1;
             break;
@@ -329,16 +331,23 @@ int main(int argc, char** argv)
       case MP_2DARK:
         if (coef >= 0.5) {
           map.Map2Dark(coef);
-          if (player.GetStatus()==ST_DIE)
+          if (player.GetStatus()==ST_DIED)
             map.PrintDie();
+          else if (player.GetStatus()==ST_WON && level==1)
+            map.PrintNotBad();
+          else if (player.GetStatus()==ST_WON && level==2) {
+            map.PrintNotBad();
+          }
           coef -= 0.01;
         }
         else if (coef >= 0) {
           map.Map2Dark(coef);
           if (level==1)
             map.PrintLevel1();
-          else
+          else if (level==2)
             map.PrintLevel2();
+          else if (level==3)
+            break;
           coef -= 0.01;
         }
         else {
@@ -351,6 +360,7 @@ int main(int argc, char** argv)
             map.LoadLevel(2);
           }
           map.SetStatus(MP_2LVL);
+
           coef = 0;
         }
         break;
@@ -360,7 +370,7 @@ int main(int argc, char** argv)
           map.Dark2Level(coef);
           if (level==1)
             map.PrintLevel1();
-          else
+          else if (level==2)
             map.PrintLevel2();
           coef += 0.04;
         }
@@ -390,6 +400,7 @@ int main(int argc, char** argv)
     else {
       flag_1 = true;
     }  
+    
 
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); GL_CHECK_ERRORS;
     glDrawPixels(WINDOW_WIDTH, WINDOW_HEIGHT, GL_RGBA, GL_UNSIGNED_BYTE, screenBuffer.Data()); GL_CHECK_ERRORS;

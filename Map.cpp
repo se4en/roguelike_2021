@@ -22,18 +22,23 @@ Map::Map(Image* Screen, std::map<std::string, std::string> Tiles,
   Image(Tiles["wall_G"]),
   Image(Tiles["wall_H"])};
   letters = new Image[LETTERS_COUNT] {
-  Image(Tiles["L"]),
-  Image(Tiles["E"]),
-  Image(Tiles["V"]),
-  Image(Tiles["L"]),
-  Image(Tiles["1"]),
-  Image(Tiles["2"]),
-  Image(Tiles["Y"]),
-  Image(Tiles["O"]),
-  Image(Tiles["U"]),
-  Image(Tiles["D"]),
-  Image(Tiles["I"]),
-  Image(Tiles["!"])};
+  Image(Tiles["A"]), // 0
+  Image(Tiles["L"]), // 1
+  Image(Tiles["E"]), // 2
+  Image(Tiles["V"]), // 3
+  Image(Tiles["1"]), // 4
+  Image(Tiles["2"]), // 5
+  Image(Tiles["Y"]), // 6
+  Image(Tiles["O"]), // 7
+  Image(Tiles["U"]), // 8
+  Image(Tiles["D"]), // 9
+  Image(Tiles["I"]), // 10
+  Image(Tiles["!"]), // 11
+  Image(Tiles["W"]), // 12
+  Image(Tiles["N"]), // 13
+  Image(Tiles["T"]), // 14
+  Image(Tiles["B"]), // 15
+  Image(Tiles[")"])}; // 16
 }
 
 void Map::Draw(std::pair<Point, Point> pair, double coef) {
@@ -214,10 +219,13 @@ void Map::BreakDoor(Point curPos) {
 }
 
 void Map::LoadLevel(int level) {
+  std::cout << "loading level " << level <<std::endl;
+
   std::string line;
   std::ifstream level_file(levels[level]);
   
   if (level_file.is_open()) {
+    
     data = "";
     while (!level_file.eof()) {
       std::getline(level_file, line);
@@ -225,6 +233,7 @@ void Map::LoadLevel(int level) {
     }
     level_file.close();
   }
+  std::cout << "end level " << level  <<std::endl;
 }
 
 Point Map::GetStart() {
@@ -241,7 +250,7 @@ void Map::PrintLevel1() {
   // L
   for(int y = to_y; y < to_y + letterSize; ++y) {
     for(int x = to_x; x < to_x + letterSize; ++x) {
-      buf = letters[0].GetPixel(x%to_x, letterSize - (y)%to_y - 1);
+      buf = letters[1].GetPixel(x%to_x, letterSize - (y)%to_y - 1);
       if (buf.r!=0 || buf.g!=0 || buf.b!=0) {
         screen.get()->PutPixel(x, y, buf);
       }
@@ -251,7 +260,7 @@ void Map::PrintLevel1() {
   // E
   for(int y = to_y; y < to_y + letterSize; ++y) {
     for(int x = to_x; x < to_x + letterSize; ++x) {
-      buf = letters[1].GetPixel(x%to_x, letterSize - (y)%to_y - 1);
+      buf = letters[2].GetPixel(x%to_x, letterSize - (y)%to_y - 1);
       if (buf.r!=0 || buf.g!=0 || buf.b!=0) {
         screen.get()->PutPixel(x, y, buf);
       }
@@ -261,7 +270,7 @@ void Map::PrintLevel1() {
   // V
   for(int y = to_y; y < to_y + letterSize; ++y) {
     for(int x = to_x; x < to_x + letterSize; ++x) {
-      buf = letters[2].GetPixel(x%to_x, letterSize - (y)%to_y - 1);
+      buf = letters[3].GetPixel(x%to_x, letterSize - (y)%to_y - 1);
       if (buf.r!=0 || buf.g!=0 || buf.b!=0) {
         screen.get()->PutPixel(x, y, buf);
       }
@@ -271,7 +280,7 @@ void Map::PrintLevel1() {
   // E
   for(int y = to_y; y < to_y + letterSize; ++y) {
     for(int x = to_x; x < to_x + letterSize; ++x) {
-      buf = letters[1].GetPixel(x%to_x, letterSize - (y)%to_y - 1);
+      buf = letters[2].GetPixel(x%to_x, letterSize - (y)%to_y - 1);
       if (buf.r!=0 || buf.g!=0 || buf.b!=0) {
         screen.get()->PutPixel(x, y, buf);
       }
@@ -281,7 +290,7 @@ void Map::PrintLevel1() {
   // L
   for(int y = to_y; y < to_y + letterSize; ++y) {
     for(int x = to_x; x < to_x + letterSize; ++x) {
-      buf = letters[3].GetPixel(x%to_x, letterSize - (y)%to_y - 1);
+      buf = letters[1].GetPixel(x%to_x, letterSize - (y)%to_y - 1);
       if (buf.r!=0 || buf.g!=0 || buf.b!=0) {
         screen.get()->PutPixel(x, y, buf);
       }
@@ -357,7 +366,7 @@ void Map::PrintDie() {
   // E
   for(int y = to_y; y < to_y + letterSize; ++y) {
     for(int x = to_x; x < to_x + letterSize; ++x) {
-      buf = letters[1].GetPixel(x%to_x, letterSize - (y)%to_y - 1);
+      buf = letters[2].GetPixel(x%to_x, letterSize - (y)%to_y - 1);
       if (buf.r!=0 || buf.g!=0 || buf.b!=0) {
         screen.get()->PutPixel(x, y, buf);
       }
@@ -383,7 +392,7 @@ void Map::PrintLevel2() {
   // L
   for(int y = to_y; y < to_y + letterSize; ++y) {
     for(int x = to_x; x < to_x + letterSize; ++x) {
-      buf = letters[0].GetPixel(x%to_x, letterSize - (y)%to_y - 1);
+      buf = letters[1].GetPixel(x%to_x, letterSize - (y)%to_y - 1);
       if (buf.r!=0 || buf.g!=0 || buf.b!=0) {
         screen.get()->PutPixel(x, y, buf);
       }
@@ -393,7 +402,7 @@ void Map::PrintLevel2() {
   // E
   for(int y = to_y; y < to_y + letterSize; ++y) {
     for(int x = to_x; x < to_x + letterSize; ++x) {
-      buf = letters[1].GetPixel(x%to_x, letterSize - (y)%to_y - 1);
+      buf = letters[2].GetPixel(x%to_x, letterSize - (y)%to_y - 1);
       if (buf.r!=0 || buf.g!=0 || buf.b!=0) {
         screen.get()->PutPixel(x, y, buf);
       }
@@ -403,7 +412,7 @@ void Map::PrintLevel2() {
   // V
   for(int y = to_y; y < to_y + letterSize; ++y) {
     for(int x = to_x; x < to_x + letterSize; ++x) {
-      buf = letters[2].GetPixel(x%to_x, letterSize - (y)%to_y - 1);
+      buf = letters[3].GetPixel(x%to_x, letterSize - (y)%to_y - 1);
       if (buf.r!=0 || buf.g!=0 || buf.b!=0) {
         screen.get()->PutPixel(x, y, buf);
       }
@@ -413,7 +422,7 @@ void Map::PrintLevel2() {
   // E
   for(int y = to_y; y < to_y + letterSize; ++y) {
     for(int x = to_x; x < to_x + letterSize; ++x) {
-      buf = letters[1].GetPixel(x%to_x, letterSize - (y)%to_y - 1);
+      buf = letters[2].GetPixel(x%to_x, letterSize - (y)%to_y - 1);
       if (buf.r!=0 || buf.g!=0 || buf.b!=0) {
         screen.get()->PutPixel(x, y, buf);
       }
@@ -423,7 +432,7 @@ void Map::PrintLevel2() {
   // L
   for(int y = to_y; y < to_y + letterSize; ++y) {
     for(int x = to_x; x < to_x + letterSize; ++x) {
-      buf = letters[3].GetPixel(x%to_x, letterSize - (y)%to_y - 1);
+      buf = letters[1].GetPixel(x%to_x, letterSize - (y)%to_y - 1);
       if (buf.r!=0 || buf.g!=0 || buf.b!=0) {
         screen.get()->PutPixel(x, y, buf);
       }
@@ -533,6 +542,7 @@ void Map::PrintNotBad() {
     }
   }  
   to_x += letterSize + 5;
+  
   // O
   for(int y = to_y; y < to_y + letterSize; ++y) {
     for(int x = to_x; x < to_x + letterSize; ++x) {
@@ -573,6 +583,7 @@ void Map::PrintNotBad() {
     }
   } 
   to_x += letterSize + 5;
+  
   // D
   for(int y = to_y; y < to_y + letterSize; ++y) {
     for(int x = to_x; x < to_x + letterSize; ++x) {
@@ -583,6 +594,7 @@ void Map::PrintNotBad() {
     }
   } 
   to_x += letterSize + 20;
+  
   // !
   for(int y = to_y; y < to_y + letterSize; ++y) {
     for(int x = to_x; x < to_x + letterSize; ++x) {
