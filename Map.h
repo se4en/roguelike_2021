@@ -10,7 +10,7 @@
 #include <thread>
 #include <list>
 
-#define WALLS_COUNT 8
+#define WALLS_COUNT 21
 #define FLOORS_COUNT 4
 #define LETTERS_COUNT 17
 
@@ -47,6 +47,7 @@ struct Map
   void PrintWin();
   void Dark();
   void PrintNotBad();
+  void StepLava();
   void Dark2Level(double coef);
   void BreakDoor(Point curPps);
   Actions GetAction(Point possiblePoint, int level=1);
@@ -56,7 +57,7 @@ struct Map
   void SetStatus(GameStatus new_status) {status = new_status;}
 private:
   std::shared_ptr<Image> screen;
-  Image lava;
+  Image* lava;
   Image* floors;
   Image* walls;
   Image* letters;

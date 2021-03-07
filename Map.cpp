@@ -20,7 +20,20 @@ Map::Map(Image* Screen, std::map<std::string, std::string> Tiles,
   Image(Tiles["wall_E"]),
   Image(Tiles["wall_F"]),
   Image(Tiles["wall_G"]),
-  Image(Tiles["wall_H"])};
+  Image(Tiles["wall_H"]),
+  Image(Tiles["wall_J"]),
+  Image(Tiles["wall_K"]),
+  Image(Tiles["wall_L"]),
+  Image(Tiles["wall_M"]),
+  Image(Tiles["wall_N"]),
+  Image(Tiles["wall_O"]),
+  Image(Tiles["wall_P"]),
+  Image(Tiles["wall_Q"]),
+  Image(Tiles["wall_R"]),
+  Image(Tiles["wall_S"]),
+  Image(Tiles["wall_T"]),
+  Image(Tiles["wall_U"]),
+  Image(Tiles["wall_V"])};
   letters = new Image[LETTERS_COUNT] {
   Image(Tiles["A"]), // 0
   Image(Tiles["L"]), // 1
@@ -92,6 +105,45 @@ void Map::Draw(std::pair<Point, Point> pair, double coef) {
         case 'H':
           buf = walls[7].GetPixel(x%tileSize, tileSize - (y-1)%tileSize-1);
           break;
+        case 'J':
+          buf = walls[8].GetPixel(x%tileSize, tileSize - (y-1)%tileSize-1);
+          break;
+        case 'K':
+          buf = walls[9].GetPixel(x%tileSize, tileSize - (y-1)%tileSize-1);
+          break;
+        case 'L':
+          buf = walls[10].GetPixel(x%tileSize, tileSize - (y-1)%tileSize-1);
+          break;
+        case 'M':
+          buf = walls[11].GetPixel(x%tileSize, tileSize - (y-1)%tileSize-1);
+          break;
+        case 'N':
+          buf = walls[12].GetPixel(x%tileSize, tileSize - (y-1)%tileSize-1);
+          break;
+        case 'O':
+          buf = walls[13].GetPixel(x%tileSize, tileSize - (y-1)%tileSize-1);
+          break;
+        case 'P':
+          buf = walls[14].GetPixel(x%tileSize, tileSize - (y-1)%tileSize-1);
+          break;
+        case 'Q':
+          buf = walls[15].GetPixel(x%tileSize, tileSize - (y-1)%tileSize-1);
+          break;
+        case 'R':
+          buf = walls[16].GetPixel(x%tileSize, tileSize - (y-1)%tileSize-1);
+          break;
+        case 'S':
+          buf = walls[17].GetPixel(x%tileSize, tileSize - (y-1)%tileSize-1);
+          break;
+        case 'T':
+          buf = walls[18].GetPixel(x%tileSize, tileSize - (y-1)%tileSize-1);
+          break;
+        case 'U':
+          buf = walls[19].GetPixel(x%tileSize, tileSize - (y-1)%tileSize-1);
+          break;
+        case 'V':
+          buf = walls[20].GetPixel(x%tileSize, tileSize - (y-1)%tileSize-1);
+          break;
         case '%':
           buf = door.GetPixel(x%tileSize, tileSize - (y-1)%tileSize-1);
           break;
@@ -125,12 +177,15 @@ void Map::Dark2Level(double coef) {
 }
 
 
-bool Map::_IsWall(int coord) {
+bool Map::
+_IsWall(int coord) {
   return (
     data[coord]=='A' || data[coord]=='B' || data[coord]=='C' || data[coord]=='D' ||
     data[coord]=='E' || data[coord]=='F' || data[coord]=='G' || data[coord]=='H' ||
     data[coord]=='G' || data[coord]=='K' || data[coord]=='L' || data[coord]=='M' ||
-    data[coord]=='N' || data[coord]=='O' || data[coord]=='P' || data[coord]=='%'
+    data[coord]=='N' || data[coord]=='O' || data[coord]=='P' || data[coord]=='Q' ||
+    data[coord]=='R' || data[coord]=='S' || data[coord]=='T' || data[coord]=='U' ||
+    data[coord]=='V' || data[coord]=='W' || data[coord]=='X' || data[coord]=='%'
   );
 }
 
@@ -219,8 +274,6 @@ void Map::BreakDoor(Point curPos) {
 }
 
 void Map::LoadLevel(int level) {
-  std::cout << "loading level " << level <<std::endl;
-
   std::string line;
   std::ifstream level_file(levels[level]);
   
@@ -233,7 +286,6 @@ void Map::LoadLevel(int level) {
     }
     level_file.close();
   }
-  std::cout << "end level " << level  <<std::endl;
 }
 
 Point Map::GetStart() {
@@ -615,4 +667,16 @@ void Map::Dark() {
       screen.get()->PutPixel(x, y, buf);
     }
   }  
+}
+
+
+void Map::StepLava() {
+  Pixel buf;
+
+  for(int y = 0; y < WINDOW_HEIGHT; ++y) {
+    for(int x = 0; x < WINDOW_WIDTH; ++x) {
+      buf = letters[1].GetPixel(0, 0);
+      screen.get()->PutPixel(x, y, buf);
+    }
+  }
 }

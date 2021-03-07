@@ -1,40 +1,40 @@
-ACCCCCCCCCCCCCCCCCCCxCCCCCCCCCCCCCCCCCCD
-A        F.......%.....%..... .........E
-A........F..FFFFFF.. ..FFFF.. .........E
-A........F.......F.. ..F.....FFFFFFFF..E
-A..FFF...F.......F.. ..F........... %..E
-A....F..FFFFFFF..F.. ..FFF%F..FFFFFFF..E
-AFF..F..F.....F..F.. ..F...F..F.....F..E
-A.%..F..F..F.....F.. ..F...F..F.....F..E
-AFFFFF..F..FFF...F.. ..F..FFF%F..F..F..E
-A.......F.....F..F.. ..F......F..F..F..E
-A.......F.....F..%.. ..%...F..F..F..F..E
-A.           .FFFFFFFFFFFFFF..F..F..F..E
-A.F.....F.....F........... F..F..F..F..E
-A.F.....F.....F..FFFFFFF...F..F..F..F..E
-A....F..F..FFFF..F.. ..FFF.F..F..F..%..E
-A....F..F..F..F..%.. ..%.F.F..F..F..F..E
-AFFFFFF.F..F..FFFF.. ..F.F.F..F.....F..E
-A.....F.F..F..F..F.. ..F.F.F..F..FFFFFFE
-A.....F.FFFF..F..F.. ..F.F....F..F.....E
-A..F..F.......%..F.. ..F.FFFFFF..F.....E
-A..F..FFFFFFFFF..F.. ..F.........F..F..E
-A..F..........F..F.. ..F.........F..F..E
-A..F..........F..F.. ..FFFFFFFFFFF..F..E
-A..FFFFFFFFF.....%.. ..%............F..E
-A..........F.....F.. ..F............F..E
-A..........FFFFFFFFFFFFFFFFFFFFFFFF%F..E
-AFFFFFFFFF%F................... ..F.F..E
-A.....   ..F..FFFFFFFFFF.......F..F.F..E
-A..........F..F..F.. ..F..FFFFFF..F%F..E
-A..FFFFFF..F..%..%.. ..%..F....F....F..E
-A..F....F..F..F..F.. ..F..F.FF.FFFFFF..E
-A.......F..F..%..F.. ..F....F%......F..E
-AFFFFF..FFFFFFFFFF.. ..F..FFFFFFFF..F..E
-A.......F..F.....F.. ..F..F.....F...F..E
-A..FFFFFF..F.....F.. ..F........F..FF..E
-A..F.......F..F..F.. ..F.....F..%...F..E
-A..FFFFFF.....F..F.. ..FFFFFFFFFFFFFF..E
-A.......F..F..F..F.. ..F...............E
-A..........%..F..%..@..%...............E
+BCCCCCCCCCCCCCCCCCCCxCCCCCCCCCCCCCCCCCCD
+A        Q.......%.....%..... .........E
+A........Q..JFFFFL.. ..NFFH.. .........E
+A........Q.......Q.. ..Q.....JFFFFFFH..E
+A..JFL...Q.......Q.. ..Q........... %..E
+A....Q..NUFFFFL..Q.. ..TFH%R..NFFFFFL..E
+AFH..Q..Q.....P..Q.. ..Q...Q..Q.....Q..E
+A.%..Q..Q..R.....Q.. ..Q...Q..Q.....Q..E
+AFFFFK..Q..MFFL..Q.. ..Q..JUH%Q..R..Q..E
+A.......Q.....Q..P.. ..P......Q..Q..Q..E
+A.......P.....Q..%.. ..%...R..Q..Q..Q..E
+A.           .TFFFFFFFFFFFFS..Q..Q..Q..E
+A.R.....R.....Q........... Q..Q..Q..Q..E
+A.P.....Q.....Q..NFFFFFL...Q..Q..Q..P..E
+A....R..Q..NFFS..P.. ..MFL.Q..Q..Q..%..E
+A....Q..Q..Q..Q..%.. ..%.Q.Q..Q..P..R..E
+AFFFFUL.Q..Q..TFFL.. ..R.Q.Q..Q.....Q..E
+A.....Q.Q..Q..Q..Q.. ..Q.Q.P..Q..NFFUFFE
+A.....Q.MFFK..P..Q.. ..Q.Q....Q..Q.....E
+A..R..Q.......%..Q.. ..Q.MFFFFK..Q.....E
+A..Q..MFFFFFFFL..Q.. ..Q.........Q..R..E
+A..Q..........Q..Q.. ..Q.........Q..Q..E
+A..Q..........P..P.. ..MFFFFFFFFFK..Q..E
+A..MFFFFFFFL.....%.. ..%............Q..E
+A..........Q.....R.. ..R............Q..E
+A..........TFFFFFUFFFFFUFFFFFFFFFFL%Q..E
+AFFFFFFFFH%Q................... ..Q.Q..E
+A.....   ..Q..NFFVFFFFFL.......R..Q.Q..E
+A..........Q..P..P.. ..P..NFFFFS..P%Q..E
+A..NFFFFL..Q..%..%.. ..%..Q....Q....Q..E
+A..P....Q..Q..O..R.. ..R..P.NH.MFFFFS..E
+A.......Q..Q..%..Q.. ..Q....Q%......Q..E
+AFFFFH..TFFFFFFFFS.. ..Q..NFUFFFVH..Q..E
+A.......Q..Q.....Q.. ..Q..P.....Q...Q..E
+A..NFFFFK..Q.....Q.. ..Q........P..JS..E
+A..Q.......P..R..Q.. ..Q.....R..%...Q..E
+A..MFFFFL.....Q..Q.. ..TFFFFFUFFFFFFK..E
+A.......P..O..Q..P.. ..P...............E
+A..........%..Q..%..@..%...............E
 AFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFE

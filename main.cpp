@@ -203,6 +203,19 @@ int main(int argc, char** argv)
     {"wall_F", "./resources/walls/F.png"},
     {"wall_G", "./resources/walls/G.png"},
     {"wall_H", "./resources/walls/H.png"},
+    {"wall_J", "./resources/walls/J.png"},
+    {"wall_K", "./resources/walls/K.png"},
+    {"wall_L", "./resources/walls/L.png"},
+    {"wall_M", "./resources/walls/M.png"},
+    {"wall_N", "./resources/walls/N.png"},
+    {"wall_O", "./resources/walls/O.png"},
+    {"wall_P", "./resources/walls/P.png"},
+    {"wall_Q", "./resources/walls/Q.png"},
+    {"wall_R", "./resources/walls/R.png"},
+    {"wall_S", "./resources/walls/S.png"},
+    {"wall_T", "./resources/walls/T.png"},
+    {"wall_U", "./resources/walls/U.png"},
+    {"wall_V", "./resources/walls/V.png"},
     // DOOR
     {"door", "./resources/door.jpg"},
     // CASTLE
@@ -321,7 +334,6 @@ int main(int argc, char** argv)
             level++;
             //if (level<3) {
             //  map.LoadLevel(2);
-            std::cout << level << std::endl;
             map.SetStatus(MP_2DARK);
             coef = 1;
             break;
@@ -333,10 +345,10 @@ int main(int argc, char** argv)
           map.Map2Dark(coef);
           if (player.GetStatus()==ST_DIED)
             map.PrintDie();
-          else if (player.GetStatus()==ST_WON && level==1)
+          else if (player.GetStatus()==ST_WON && level==2)
             map.PrintNotBad();
-          else if (player.GetStatus()==ST_WON && level==2) {
-            map.PrintNotBad();
+          else if (player.GetStatus()==ST_WON && level==3) {
+            map.PrintWin();
           }
           coef -= 0.01;
         }
@@ -358,6 +370,7 @@ int main(int argc, char** argv)
           else {
             map.PrintLevel2();
             map.LoadLevel(2);
+            player.start = map.GetStart();
           }
           map.SetStatus(MP_2LVL);
 
