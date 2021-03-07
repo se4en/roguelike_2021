@@ -188,7 +188,14 @@ int main(int argc, char** argv)
 
   // init map
   std::map<std::string, std::string> tiles {
-    {"lava", "./resources/lava.png"},
+    {"lava_1", "./resources/lava_1.png"},
+    {"lava_2", "./resources/lava_2.png"},
+    {"lava_3", "./resources/lava_3.png"},
+    {"lava_4", "./resources/lava_4.png"},
+    {"lava_5", "./resources/lava_5.png"},
+    {"lava_6", "./resources/lava_6.png"},
+    {"lava_7", "./resources/lava_7.png"},
+    {"lava_8", "./resources/lava_8.png"},
     // FLOOR
     {"floor_1", "./resources/floor_1.png"},
     {"floor_2", "./resources/floor_2.png"},
@@ -217,9 +224,9 @@ int main(int argc, char** argv)
     {"wall_U", "./resources/walls/U.png"},
     {"wall_V", "./resources/walls/V.png"},
     // DOOR
-    {"door", "./resources/door.jpg"},
+    {"door", "./resources/hay.png"},
     // CASTLE
-    {"castle", "./resources/door.jpg"},
+    {"castle", "./resources/door-1.png"},
     // LETTERS
     {"A", "./resources/font/letter-65.png"}, // 0
     {"E", "./resources/font/letter-69.png"}, // 1
@@ -278,6 +285,7 @@ int main(int argc, char** argv)
   bool flag_1 = false;
   bool flag_2 = false;
   bool flag_3 = false;
+  bool flag_4 = false;
 
   // LEVEL 1
   map.Dark();
@@ -316,7 +324,6 @@ int main(int argc, char** argv)
       map.Draw(player.GetLeftRight());
       player.Draw();
     }
-
 
     switch (map.GetStatus()) {
 
@@ -396,24 +403,31 @@ int main(int argc, char** argv)
         break;
     }
 
-    // step
-    if (flag_1) {
-      if (flag_2) {
-        if (flag_3) {
-          ++player.cntr;
-          flag_1 = false;
-          flag_2 = false;       
-          flag_3 = false;
+    if (map.GetStatus()==MP_INGAME) {
+      // step
+      if (flag_1) {
+        if (flag_2) {
+          if (flag_3) {
+            ++player.cntr;
+            if (flag_4) {
+              map.StepLava();
+              flag_4 = false;
+            }
+            else 
+              flag_4 = true;
+            flag_1 = false;
+            flag_2 = false;       
+            flag_3 = false;
+          }
+          else 
+            flag_3 = true;
         }
-        else 
-          flag_3 = true;
+        else flag_2 = true;
       }
-      else flag_2 = true;
+      else {
+        flag_1 = true;
+      }  
     }
-    else {
-      flag_1 = true;
-    }  
-    
 
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); GL_CHECK_ERRORS;
     glDrawPixels(WINDOW_WIDTH, WINDOW_HEIGHT, GL_RGBA, GL_UNSIGNED_BYTE, screenBuffer.Data()); GL_CHECK_ERRORS;

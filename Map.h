@@ -12,6 +12,7 @@
 
 #define WALLS_COUNT 21
 #define FLOORS_COUNT 4
+#define LAVA_COUNT 8
 #define LETTERS_COUNT 17
 
 #define GLFW_DLL
@@ -38,6 +39,7 @@ struct Map
 {
   Map(Image* Screen, std::map<std::string, std::string> Tiles, 
       std::map<int, std::string> Levels);
+  ~Map();
 
   void Draw(std::pair<Point, Point>, double coef=1);
   void Map2Dark(double coef);
@@ -68,7 +70,8 @@ private:
   int cur_level = 1;
   std::map<int, std::string> levels;
   std::string data;
-
+  uint8_t cur_lava;
+  bool flag = false;
   bool _IsWall(int coord);
 };
 

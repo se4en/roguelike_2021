@@ -148,8 +148,8 @@ void Player::Draw() {
       img = stay_l + cntr%STAY_CNT;
       break;
   }
-  for(int y = coords.y; y <= coords.y + playerSize; ++y) {
-    for(int x = coords.x; x <= coords.x + playerSize; ++x) {
+  for(int y = coords.y; y < coords.y + playerSize; ++y) {
+    for(int x = coords.x; x < coords.x + playerSize; ++x) {
       Pixel buf = img->GetPixel(x - coords.x, playerSize - y + coords.y - 1);
       if (buf.r!=0 || buf.g!=0 || buf.b!=0) {
         screen.get()->PutPixel(x, y, buf);

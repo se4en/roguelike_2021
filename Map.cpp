@@ -3,10 +3,19 @@
 Map::Map(Image* Screen, std::map<std::string, std::string> Tiles, 
       std::map<int, std::string> Levels) : 
     screen(Screen),
-    lava(Image(Tiles["lava"])),
+    cur_lava(0),
     door(Image(Tiles["door"])),
     castle(Image(Tiles["castle"])),
     levels(Levels) {
+  lava = new Image[LAVA_COUNT] {
+  Image(Tiles["lava_1"]),
+  Image(Tiles["lava_2"]),
+  Image(Tiles["lava_3"]),
+  Image(Tiles["lava_4"]),
+  Image(Tiles["lava_5"]),
+  Image(Tiles["lava_6"]),
+  Image(Tiles["lava_7"]),
+  Image(Tiles["lava_8"])};
   floors = new Image[FLOORS_COUNT] {
   Image(Tiles["floor_1"]),
   Image(Tiles["floor_2"]),
@@ -79,7 +88,7 @@ void Map::Draw(std::pair<Point, Point> pair, double coef) {
           buf = floors[ind].GetPixel(x%tileSize, tileSize - (y-1)%tileSize - 1);
           break;
         case ' ':
-          buf = lava.GetPixel(x%tileSize, tileSize - (y-1)%tileSize-1);
+          buf = lava[0].GetPixel(x%tileSize, tileSize - (y-1)%tileSize-1);
           break;
         case 'A':
           buf = walls[0].GetPixel(x%tileSize, tileSize - (y-1)%tileSize-1);
@@ -185,7 +194,8 @@ _IsWall(int coord) {
     data[coord]=='G' || data[coord]=='K' || data[coord]=='L' || data[coord]=='M' ||
     data[coord]=='N' || data[coord]=='O' || data[coord]=='P' || data[coord]=='Q' ||
     data[coord]=='R' || data[coord]=='S' || data[coord]=='T' || data[coord]=='U' ||
-    data[coord]=='V' || data[coord]=='W' || data[coord]=='X' || data[coord]=='%'
+    data[coord]=='V' || data[coord]=='W' || data[coord]=='X' || data[coord]=='J' ||
+    data[coord]=='%'
   );
 }
 
@@ -672,11 +682,33 @@ void Map::Dark() {
 
 void Map::StepLava() {
   Pixel buf;
+  int to_x, to_y;
+  int cur_x, cur_y;
+  int ind;
 
-  for(int y = 0; y < WINDOW_HEIGHT; ++y) {
-    for(int x = 0; x < WINDOW_WIDTH; ++x) {
-      buf = letters[1].GetPixel(0, 0);
-      screen.get()->PutPixel(x, y, buf);
+  if (flag) {
+    cur_lava++;
+    for (int i=0; i<(WINDOW_HEIGHT/tileSize)*(WINDOW_WIDTH/tileSize); ++i) {
+    //return Point{.x = , .y = };
+      //};
+      if (data[i]==' ') {
+        to_x = tileSize*(i%(WINDOW_WIDTH/tileSize));
+        to_y = WINDOW_HEIGHT - tileSize*(i/(WINDOW_HEIGHT/tileSize) + 1);
+        
+        for(int y = to_y; y < to_y + tileSize; ++y) {
+          for(int x = to_x; x < to_x + tileSize; ++x) {
+            cur_x = x%to_x;
+            cur_y = y%to_y;
+            ind = 0;//cur_x%2;
+            buf = lava[(cur_lava+ind)%LAVA_COUNT].GetPixel(cur_x, tileSize - cur_y - 1);
+            screen.get()->PutPixel(x, y, buf);
+          }
+        }
+      }
     }
+    flag = false;
+  }
+  else {
+    flag = true;
   }
 }
